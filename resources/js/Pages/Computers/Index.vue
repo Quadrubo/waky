@@ -9,6 +9,10 @@ let props = defineProps({
 let wakeComputer = ((id) => {
     router.post(route('computers.wake', id));
 });
+
+let pingComputer = ((id) => {
+    router.post(route('computers.ping', id));
+});
 </script>
 
 <template>
@@ -39,7 +43,7 @@ let wakeComputer = ((id) => {
                                 <td>{{ computer.mac_address }}</td>
                                 <td>{{ computer.ip_address }}</td>
                                 <td><button @click="wakeComputer(computer.id)">Wake-up</button></td>
-                                <td>Status</td>
+                                <td><button @click="pingComputer(computer.id)">Status</button></td>
                             </tr>
                         </tbody>
                     </table>

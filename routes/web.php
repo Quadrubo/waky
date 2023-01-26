@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\WakeComputerController;
+use App\Http\Controllers\PingComputerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,3 +34,5 @@ Route::resource('computers', ComputerController::class)
         ->only(['index']);
 
 Route::post('/computers/{computer}/wake', WakeComputerController::class)->name('computers.wake');
+Route::post('/computers/{computer}/ping', PingComputerController::class)->name('computers.ping');
+
