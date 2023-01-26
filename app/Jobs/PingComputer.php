@@ -43,7 +43,7 @@ class PingComputer implements ShouldQueue
         $ipAddress = $this->computer->ip_address;
 
         // Create an instance of PingCommand
-        $command = (new PingCommandBuilder("127.0.0.1"));
+        $command = (new PingCommandBuilder($ipAddress));
 
         // Pass the PingCommand instance to Ping and run...
         $ping = (new Ping($command))->run();
