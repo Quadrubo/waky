@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\WakeComputerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,3 +35,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::resource('computers', ComputerController::class)
+    ->only(['index']);
+
+Route::post('/computers/{computer}/wake', WakeComputerController::class)->name('computers.wake');

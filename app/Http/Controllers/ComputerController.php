@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreComputerRequest;
 use App\Http\Requests\UpdateComputerRequest;
 use App\Models\Computer;
+use Inertia\Inertia;
 
 class ComputerController extends Controller
 {
@@ -15,7 +16,11 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        //
+        $computers = Computer::all();
+
+        return Inertia::render('Computers/Index', [
+            'computers' => $computers,
+        ]);
     }
 
     /**
