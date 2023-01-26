@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86e41e58600b8f6934f01c7496334048",
+    "content-hash": "d2422c24f3e6d204bcbdb4e0bd09b82a",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -560,6 +560,69 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.2"
             },
             "time": "2022-10-27T11:44:00+00:00"
+        },
+        {
+            "name": "diegonz/php-wake-on-lan",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/diegonz/PHPWakeOnLan.git",
+                "reference": "17dc15d374d877dfd4b6fc24f3db2ec0bee8391f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/diegonz/PHPWakeOnLan/zipball/17dc15d374d877dfd4b6fc24f3db2ec0bee8391f",
+                "reference": "17dc15d374d877dfd4b6fc24f3db2ec0bee8391f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-sockets": "*",
+                "php": "^7.1.8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.8.*",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Diegonz\\PHPWakeOnLan\\PHPWakeOnLanServiceProvider"
+                    ],
+                    "aliases": {
+                        "PHPWakeOnLan": "Diegonz\\PHPWakeOnLan\\Facades\\PHPWakeOnLan"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Diegonz\\PHPWakeOnLan\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Diego González",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Wake on lan target enabled devices by sending magic packets to them from PHP",
+            "homepage": "https://github.com/diegonz/php-wake-on-lan",
+            "keywords": [
+                "lan",
+                "magicpacket",
+                "wake",
+                "wakeonlan"
+            ],
+            "support": {
+                "issues": "https://github.com/diegonz/PHPWakeOnLan/issues",
+                "source": "https://github.com/diegonz/PHPWakeOnLan/tree/develop"
+            },
+            "time": "2019-04-01T18:48:45+00:00"
         },
         {
             "name": "doctrine/inflector",

@@ -9,10 +9,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use \Diegonz\PHPWakeOnLan\PHPWakeOnLan;
+use App\Support\Concerns\InteractsWithBanner;
 
 class WakeComputer implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
 
     /**
      * The computer instance.
@@ -38,6 +40,20 @@ class WakeComputer implements ShouldQueue
      */
     public function handle()
     {
-        dd($this->computer);
+        $macAddress = [$this->computer->mac_address];
+
+        try {
+            $phpWakeOnLan = new PHPWakeOnLan();
+            $result = $phpWakeOnLan->wake($macAddress);
+
+            if ($result['result'] == "OK") {
+                $this->banner($result['message']);
+            } else {
+                $this->banner($result['message'], 'danger');
+            }
+            
+        } catch (Exception $e) {
+            $this->banner($e->getMessage(), 'danger');
+        }
     }
 }
