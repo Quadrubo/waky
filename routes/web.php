@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\WakeComputerController;
 use App\Http\Controllers\PingComputerController;
+use App\Http\Controllers\UseComputerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +33,7 @@ Route::middleware([
     
     Route::post('/computers/{computer}/wake', WakeComputerController::class)->name('computers.wake');
     Route::post('/computers/ping', PingComputerController::class)->name('computers.ping');
+    Route::post('/computers/{computer}/use', UseComputerController::class)->name('computers.use');
 });
 
 

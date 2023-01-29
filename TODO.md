@@ -1,3 +1,4 @@
 # Todo
 
-- Status aas emojis
+- Status as emojis
+- Fix wake on lan in docker
