@@ -16,7 +16,10 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        $computers = Computer::all();
+        $computers = Computer::all()
+            ->map(function ($computer) {
+                return $computer;
+            });
 
         return Inertia::render('Computers/Index', [
             'computers' => $computers,

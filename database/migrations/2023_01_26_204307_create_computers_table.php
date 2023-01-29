@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('mac_address');
             $table->string('ip_address');
+            $table->string('status')->nullable();
+            $table->dateTime('status_updated_at')->nullable();
             $table->timestamps();
         });
     }

@@ -11,10 +11,12 @@ use Illuminate\Queue\SerializesModels;
 use Acamposm\Ping\Ping;
 use Acamposm\Ping\PingCommandBuilder;
 use App\Models\Computer;
+use App\Support\Concerns\InteractsWithBanner;
+use ErrorException;
 
 class PingComputer implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
 
     /**
      * The computer instance.
@@ -39,15 +41,21 @@ class PingComputer implements ShouldQueue
      * @return void
      */
     public function handle()
-    {
+    {        
         $ipAddress = $this->computer->ip_address;
 
-        // Create an instance of PingCommand
-        $command = (new PingCommandBuilder($ipAddress));
+        $ping = new \JJG\Ping($ipAddress);
 
-        // Pass the PingCommand instance to Ping and run...
-        $ping = (new Ping($command))->run();
+        $latency = $ping->ping();
 
-        dd($ping);
+        if ($latency !== false) {
+            $this->computer->status = 'on';
+        } else {
+            $this->computer->status = 'off';
+        }
+
+        $this->computer->touch('status_updated_at');
+
+        $this->computer->save();
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\PingComputer;
-use App\Models\Computer;
-use Illuminate\Http\Request;
+use App\Jobs\PingComputers;
 
 class PingComputerController extends Controller
 {
@@ -14,8 +12,8 @@ class PingComputerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Computer $computer)
+    public function __invoke()
     {
-        PingComputer::dispatch($computer);
+        PingComputers::dispatch();
     }
 }
