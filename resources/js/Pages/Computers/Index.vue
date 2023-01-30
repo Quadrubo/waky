@@ -33,9 +33,50 @@ let useComputer = ((id) => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="">
                     <div class="grid grid-cols-1 m-auto">
-                        <table class="table table-auto max-w-full divide-y-2 divide-gray-300 text-gray-900 text-left">
+
+                        <!-- Mobile Table -->
+                        <div class="md:hidden max-w-full px-2">
+                            <div v-for="computer, computer_key in computers" :key="computer_key" class="bg-white overflow-hidden shadow-md rounded-md space-y-2 p-2">
+                                <!-- {{ computer }} -->
+        
+                                <!-- Top row -->
+                                <div class="flex flex-row justify-between items-center">
+                                    <div class="flex flex-row items-center space-x-2">
+                                        <span>
+                                            <!-- On click show last updated at, only show the dot -->
+                                            <StatusIndicator class="block m-auto" :type="computer.status">{{ computer.status }}</StatusIndicator>
+                                        </span>
+                                        <span class="text-xl">
+                                            {{ computer.name }}
+                                        </span>
+                                    </div>
+                                    <span>
+                                        <IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton>
+                                    </span>
+                                    <div class="space-x-2">
+                                        <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>
+                                        <span>{{ computer.users }}</span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!-- Bottom row -->
+                                <div class="flex flex-row justify-evenly">
+                                    <span>
+                                        {{ computer.mac_address }}
+                                    </span>
+                                    <span>
+                                        {{ computer.ip_address }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <table class="hidden md:table table-auto bg-white overflow-hidden shadow-xl sm:rounded-lg max-w-full divide-y-2 divide-gray-300 text-gray-900 text-left">
                             <thead>
                                 <tr class="bg-indigo-400 text-xl font-bold divide-x">
                                     <th scope="col" class="px-6 py-4">Name</th>

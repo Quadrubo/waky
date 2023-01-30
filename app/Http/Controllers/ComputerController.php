@@ -20,7 +20,10 @@ class ComputerController extends Controller
         $computers = Computer::query()
             ->get()
             ->map(function ($computer) {
-                $computer['status_updated_at'] = Carbon::make($computer['status_updated_at'])->format('d.m.Y H:i:s');
+                if ($computer['status_updated_at']) {
+                    $computer['status_updated_at'] = Carbon::make($computer['status_updated_at'])->format('d.m.Y H:i:s');
+                }
+                
                 $computer['users'] = $computer->users()->count();
 
                 return $computer;
