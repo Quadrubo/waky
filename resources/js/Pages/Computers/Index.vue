@@ -37,7 +37,7 @@ let useComputer = ((id) => {
                     <div class="grid grid-cols-1 m-auto">
 
                         <!-- Mobile Table -->
-                        <div class="md:hidden max-w-full px-2">
+                        <div class="md:hidden max-w-full px-2 space-y-4">
                             <div v-for="computer, computer_key in computers" :key="computer_key" class="bg-white overflow-hidden shadow-md rounded-md space-y-2 p-2">
                                 <!-- {{ computer }} -->
         

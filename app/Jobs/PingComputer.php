@@ -41,10 +41,11 @@ class PingComputer implements ShouldQueue
      * @return void
      */
     public function handle()
-    {        
+    {              
         $ipAddress = $this->computer->ip_address;
 
         $ping = new \JJG\Ping($ipAddress);
+        $ping->setTimeout(5);
 
         $latency = $ping->ping();
 
