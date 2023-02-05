@@ -1,66 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WOL-Client
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web based Wake-on-LAN Server for managing servers in your home network!
 
-## About Laravel
+## Getting Started
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+These instructions will give you a copy of the project up and running on
+your local machine for development and testing purposes. See deployment
+for notes on deploying the project on a live system.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+These instructions are focused on running the project with Docker. Docker and Docker Compose need to be installed on your system to proceed. This project assumes you will be using [Laravel Sail](https://laravel.com/docs/9.x/sail) as your development environment.
 
-## Learning Laravel
+I also assume that you [configured the sail alias](https://laravel.com/docs/9.x/sail#configuring-a-shell-alias). If not, just replace `sail` with `./vendor/bin/sail` while installing.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Installing
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+First clone the project to your local system.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+git clone https://github.com/Quadrubo/wol-client
+```
 
-## Laravel Sponsors
+[Install the composer dependencies](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects) using Laravel Sail.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Start the container.
 
-### Premium Partners
+```
+sail up
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Copy the environment file.
+
+```
+cp .env.dev .env
+```
+
+Generate the app key.
+
+```
+sail artisan key:generate
+```
+
+Run the database migrations.
+
+```
+sail artisan migrate
+```
+
+Seed the database.
+
+```
+sail artisan db:seed --class DevelopmentSeeder
+```
+
+Install the npm dependencies.
+
+```
+sail npm install
+```
+
+Start the vite development environment.
+
+```
+sail npm run dev
+```
+
+You should now be able to access the site on `http://localhost`. 2 test users have been created for you.
+
+| Username | E-Mail            | Password |
+| -------- | ----------------- | -------- |
+| admin    | admin@admin.admin | admin123 |
+| user     | user@user.user    | user1234 |
+
+The admin user has access to the admin panel and can create computers. The user user has no specific permissions.
+
+You can access the admin panel at `/admin`.
+
+### Project Structure
+
+The project is a pretty simple Laravel app. The admin panel is built using [Filament](https://github.com/filamentphp/filament). The rest of the site was scaffolded with [Laravel Jetstream](https://github.com/laravel/jetstream) and is using the [Inertia Stack](https://jetstream.laravel.com/2.x/stacks/inertia.html).
+
+## Running the tests
+
+```
+sail test
+```
+
+## Deployment
+
+To deploy this on a live system, you **should not** use Laravel Sail.  
+I also had trouble getting it to run with Docker, because the Wake-on-LAN magic packet wouldn't route out of the container. If you find a way to run this within Docker I'd gladly accept a Pull Request with a compose file.
+
+In production, I currently just run this with `php8.2-fpm`, `nginx` and a `mariadb` database. Please check the Laravel documentation on [Deployment](https://laravel.com/docs/9.x/deployment) for more details.
+
+Build the vite production environment.
+
+```
+npm run build
+```
+
+## Troubleshooting
+
+### Your requirements could not be resolved to an installable set of packages.
+
+The error currently persists because of the `php-wake-on-lan` package in use.
+
+```
+Your requirements could not be resolved to an installable set of packages.
+
+  Problem 1
+    - Root composer.json requires diegonz/php-wake-on-lan ^2.1 -> satisfiable by diegonz/php-wake-on-lan[v2.1.0].
+    - diegonz/php-wake-on-lan v2.1.0 requires php ^7.1.8 -> your php version (8.2.2) does not satisfy that requirement.
+```
+
+As a workaround, you can run `composer` commands with the `--ignore-platform-req=php` flag.
+To fix this error, the [PHPWakeOnLan](https://github.com/diegonz/PHPWakeOnLan) package has to be updated to support PHP ^8.
+
+## Built With
+
+  - [Laravel](https://github.com/laravel/framework) - Framework
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
+of conduct, and the process for submitting pull requests to us.
+## Authors
 
-## Code of Conduct
+  - **Quadrubo**
+  - **[Billie Thompson](https://github.com/PurpleBooth)** - *Provided [README Template](https://github.com/PurpleBooth/a-good-readme-template)*
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+See also the list of
+[contributors](https://github.com/Quadrubo/wol-client/graphs/contributors)
+who participated in this project.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE.md).
