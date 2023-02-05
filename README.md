@@ -54,6 +54,20 @@ Seed the database.
 sail artisan db:seed --class DevelopmentSeeder
 ```
 
+Running the scheduler.  
+*The scheduler is responsible for starting the jobs in regular intervals.*
+
+```
+sail artisan schedule:work
+```
+
+Running the queue.  
+*The queue is responsilbe for executing the jobs like pinging the computers.*
+
+```
+sail artisan queue:work
+```
+
 Install the npm dependencies.
 
 ```
