@@ -117,6 +117,8 @@ Your requirements could not be resolved to an installable set of packages.
 As a workaround, you can run `composer` commands with the `--ignore-platform-req=php` flag.
 To fix this error, the [PHPWakeOnLan](https://github.com/diegonz/PHPWakeOnLan) package has to be updated to support PHP ^8.
 
+I already opened a Pull request with the fix on the repository. You can check the status [here](https://github.com/diegonz/PHPWakeOnLan/pull/9).
+
 ## Built With
 
   - [Laravel](https://github.com/laravel/framework) - Framework
