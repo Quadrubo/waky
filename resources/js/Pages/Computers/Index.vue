@@ -101,7 +101,7 @@ let useComputer = ((id) => {
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex flex-row justify-evenly">
-                                            <span>{{ computer.status_updated_at }} UTC</span>
+                                            <span>{{ computer.status_updated_at }}</span>
                                             <StatusIndicator class="block m-auto" :type="computer.status">{{ computer.status }}</StatusIndicator>
                                         </div>
                                     </td>
