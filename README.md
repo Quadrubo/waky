@@ -81,6 +81,8 @@ You can access the admin panel at `/admin`.
 
 The project is a pretty simple Laravel app. The admin panel is built using [Filament](https://github.com/filamentphp/filament). The rest of the site was scaffolded with [Laravel Jetstream](https://github.com/laravel/jetstream) and is using the [Inertia Stack](https://jetstream.laravel.com/2.x/stacks/inertia.html).
 
+There is also the [TODO.md](TODO.md) file, filled with stuff that is left to do. 
+
 ## Running the tests
 
 ```
@@ -125,8 +127,8 @@ I already opened a Pull request with the fix on the repository. You can check th
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+All contributions are welcome! Just fork the project. [Setup the development environment](#installing) and create a branch for your fix or feature :)
+
 ## Authors
 
   - **Quadrubo**
