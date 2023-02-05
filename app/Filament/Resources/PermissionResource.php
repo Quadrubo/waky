@@ -2,27 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ComputerResource\Pages;
-use App\Filament\Resources\ComputerResource\RelationManagers;
-use App\Models\Computer;
+use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Resources\PermissionResource\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
 
-class ComputerResource extends Resource
+class PermissionResource extends Resource
 {
-    protected static ?string $model = Computer::class;
+    protected static ?string $model = Permission::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-desktop-computer';
+    protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
     public static function form(Form $form): Form
     {
@@ -37,14 +33,15 @@ class ComputerResource extends Resource
                                     ->maxLength(255)
                                     ->autofocus()
                                     ->localize('app.general.attributes.name'),
-                                Forms\Components\TextInput::make('mac_address')
+                                Forms\Components\TextInput::make('guard_name')
                                     ->required()
                                     ->maxLength(255)
-                                    ->localize('app.models.computer.attributes.mac_address'),
-                                Forms\Components\TextInput::make('ip_address')
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->localize('app.models.computer.attributes.ip_address'),
+                                    ->localize('app.models.permission.attributes.guard_name'),
+                                Forms\Components\Select::make('roles')
+                                    ->multiple()
+                                    ->relationship('roles', 'name')
+                                    ->preload(true)
+                                    ->localize('app.models.permission.relations.roles'),
                             ])
                             ->columns([
                                 'default' => 1,
@@ -53,7 +50,7 @@ class ComputerResource extends Resource
                     ])
                     ->columnSpan([
                         'default' => 1,
-                        'sm' => fn (Component $livewire): int => $livewire instanceof Pages\CreateComputer ? 3 : 2,
+                        'sm' => fn (Component $livewire): int => $livewire instanceof Pages\CreatePermission ? 3 : 2,
                     ]),
                 Forms\Components\Group::make()
                     ->hiddenOn('create')
@@ -69,7 +66,7 @@ class ComputerResource extends Resource
                                     ->disabled()
                                     ->dehydrated(false)
                                     ->displayFormat('d.m.Y H:i:s')
-                                    ->localize('app.general.attributes.created_at'),
+                                    ->localize('app.general.attributes.updated_at'),
                             ])
                             ->columns([
                                 'default' => 1,
@@ -93,14 +90,10 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->localize('app.general.attributes.name', helper: false, hint: false),
-                Tables\Columns\TextColumn::make('mac_address')
+                Tables\Columns\TextColumn::make('guard_name')
                     ->sortable()
                     ->searchable()
-                    ->localize('app.models.computer.attributes.mac_address', helper: false, hint: false),
-                Tables\Columns\TextColumn::make('ip_address')
-                    ->sortable()
-                    ->searchable()
-                    ->localize('app.models.computer.attributes.ip_address', helper: false, hint: false),
+                    ->localize('app.models.permission.attributes.guard_name', helper: false, hint: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d.m.Y')
                     ->sortable()
@@ -110,9 +103,6 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->localize('app.general.attributes.updated_at', helper: false, hint: false),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
@@ -120,79 +110,41 @@ class ComputerResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])
+            ->filters([
+                //
+            ])
             ->defaultSort('name');
     }
-    
+
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\RolesRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListComputers::route('/'),
-            'create' => Pages\CreateComputer::route('/create'),
-            'view' => Pages\ViewComputer::route('/{record}'),
-            'edit' => Pages\EditComputer::route('/{record}/edit'),
+            'index' => Pages\ListPermissions::route('/'),
+            'create' => Pages\CreatePermission::route('/create'),
+            'edit' => Pages\EditPermission::route('/{record}/edit'),
+            'view' => Pages\ViewPermission::route('/{record}'),
         ];
-    }   
-    
-    /**
-     * Get the advanced search result Details.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $record
-     * @return array
-     */
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        return [
-            __('app.models.computer.attributes.mac_address.label') => $record->mac_address,
-            __('app.models.computer.attributes.ip_address.label') => $record->ip_address,
-        ];
-    }
-
-    /**
-     * Get the Eloquent query for global search. Excludes the records the user is not authorized to see.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected static function getGlobalSearchEloquentQuery(): Builder
-    {
-        $query = parent::getGlobalSearchEloquentQuery();
-
-        if (! Auth::user()->hasPermissionTo('view_any_computer')) {
-            $query = $query->where('id', -1);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Gets the URL the User is redirected to after clicking on a global search result.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $record
-     * @return string
-     */
-    public static function getGlobalSearchResultUrl(Model $record): string
-    {
-        return route('filament.resources.computers.view', ['record' => $record]);
     }
 
     public static function getModelLabel(): string
     {
-        return __('app.models.computer.label') !== 'app.models.computer.label' ? __('app.models.computer.label') : parent::getModelLabel();
+        return __('app.models.permission.label') !== 'app.models.permission.label' ? __('app.models.permission.label') : parent::getModelLabel();
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('app.models.computer.plural_label') !== 'app.models.computer.plural_label' ? __('app.models.computer.plural_label') : parent::getPluralModelLabel();
+        return __('app.models.permission.plural_label') !== 'app.models.permission.plural_label' ? __('app.models.permission.plural_label') : parent::getPluralModelLabel();
     }
 
     protected static function getNavigationGroup(): ?string
     {
-        return __('app.models.computer.navigation_group') !== 'app.models.computer.navigation_group' ? __('app.models.computer.navigation_group') : parent::getNavigationGroup();
+        return __('app.models.permission.navigation_group') !== 'app.models.permission.navigation_group' ? __('app.models.permission.navigation_group') : parent::getNavigationGroup();
     }
 }

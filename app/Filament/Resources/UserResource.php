@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ComputerResource\Pages;
-use App\Filament\Resources\ComputerResource\RelationManagers;
-use App\Models\Computer;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Tables\Filters as CustomFilters;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -12,17 +13,17 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class ComputerResource extends Resource
+class UserResource extends Resource
 {
-    protected static ?string $model = Computer::class;
+    protected static ?string $model = User::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-desktop-computer';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -37,23 +38,37 @@ class ComputerResource extends Resource
                                     ->maxLength(255)
                                     ->autofocus()
                                     ->localize('app.general.attributes.name'),
-                                Forms\Components\TextInput::make('mac_address')
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
                                     ->required()
                                     ->maxLength(255)
-                                    ->localize('app.models.computer.attributes.mac_address'),
-                                Forms\Components\TextInput::make('ip_address')
+                                    ->localize('app.models.user.attributes.email'),
+                                Forms\Components\TextInput::make('password')
+                                    ->password()
                                     ->required()
                                     ->maxLength(255)
-                                    ->localize('app.models.computer.attributes.ip_address'),
+                                    ->dehydrateStateUsing(fn ($state) => ! empty($state) ? Hash::make($state) : null)
+                                    ->visibleOn('create')
+                                    ->localize('app.models.user.attributes.password'),
+                                Forms\Components\DateTimePicker::make('email_verified_at')
+                                    ->hiddenOn('create')
+                                    ->displayFormat('d.m.Y H:i:s')
+                                    ->localize('app.models.user.attributes.email_verified_at'),
                             ])
                             ->columns([
                                 'default' => 1,
                                 'sm' => 2,
                             ]),
+                        Forms\Components\Section::make(__('app.filament.forms.sections.authorization.label'))
+                            ->schema([
+                                Forms\Components\CheckboxList::make('roles')
+                                    ->relationship('roles', 'name')
+                                    ->localize('app.models.user.relations.roles'),
+                            ]),
                     ])
                     ->columnSpan([
                         'default' => 1,
-                        'sm' => fn (Component $livewire): int => $livewire instanceof Pages\CreateComputer ? 3 : 2,
+                        'sm' => fn (Component $livewire): int => $livewire instanceof Pages\CreateUser ? 3 : 2,
                     ]),
                 Forms\Components\Group::make()
                     ->hiddenOn('create')
@@ -84,6 +99,10 @@ class ComputerResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $filters = [
+            CustomFilters\VerifiedFilter::make(),
+        ];
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
@@ -93,14 +112,14 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->localize('app.general.attributes.name', helper: false, hint: false),
-                Tables\Columns\TextColumn::make('mac_address')
+                Tables\Columns\TextColumn::make('email')
                     ->sortable()
                     ->searchable()
-                    ->localize('app.models.computer.attributes.mac_address', helper: false, hint: false),
-                Tables\Columns\TextColumn::make('ip_address')
+                    ->localize('app.models.user.attributes.email', helper: false, hint: false),
+                Tables\Columns\TextColumn::make('email_verified_at')
+                    ->dateTime('d.m.Y')
                     ->sortable()
-                    ->searchable()
-                    ->localize('app.models.computer.attributes.ip_address', helper: false, hint: false),
+                    ->localize('app.models.user.attributes.email_verified_at', helper: false, hint: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d.m.Y')
                     ->sortable()
@@ -110,9 +129,6 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->localize('app.general.attributes.updated_at', helper: false, hint: false),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
@@ -120,26 +136,27 @@ class ComputerResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])
+            ->filters($filters)
             ->defaultSort('name');
     }
-    
+
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\RolesRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListComputers::route('/'),
-            'create' => Pages\CreateComputer::route('/create'),
-            'view' => Pages\ViewComputer::route('/{record}'),
-            'edit' => Pages\EditComputer::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view' => Pages\ViewUser::route('/{record}'),
         ];
-    }   
-    
+    }
+
     /**
      * Get the advanced search result Details.
      *
@@ -149,8 +166,8 @@ class ComputerResource extends Resource
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         return [
-            __('app.models.computer.attributes.mac_address.label') => $record->mac_address,
-            __('app.models.computer.attributes.ip_address.label') => $record->ip_address,
+            __('app.models.user.attributes.email.label') => $record->email,
+            __('app.filament.tables.filters.verified.label') => ! is_null($record->email_verified_at) ? __('app.other.yes') : __('app.other.no'),
         ];
     }
 
@@ -163,7 +180,7 @@ class ComputerResource extends Resource
     {
         $query = parent::getGlobalSearchEloquentQuery();
 
-        if (! Auth::user()->hasPermissionTo('view_any_computer')) {
+        if (! Auth::user()->hasPermissionTo('view_any_user')) {
             $query = $query->where('id', -1);
         }
 
@@ -178,21 +195,21 @@ class ComputerResource extends Resource
      */
     public static function getGlobalSearchResultUrl(Model $record): string
     {
-        return route('filament.resources.computers.view', ['record' => $record]);
+        return route('filament.resources.users.view', ['record' => $record]);
     }
 
     public static function getModelLabel(): string
     {
-        return __('app.models.computer.label') !== 'app.models.computer.label' ? __('app.models.computer.label') : parent::getModelLabel();
+        return __('app.models.user.label') !== 'app.models.user.label' ? __('app.models.user.label') : parent::getModelLabel();
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('app.models.computer.plural_label') !== 'app.models.computer.plural_label' ? __('app.models.computer.plural_label') : parent::getPluralModelLabel();
+        return __('app.models.user.plural_label') !== 'app.models.user.plural_label' ? __('app.models.user.plural_label') : parent::getPluralModelLabel();
     }
 
     protected static function getNavigationGroup(): ?string
     {
-        return __('app.models.computer.navigation_group') !== 'app.models.computer.navigation_group' ? __('app.models.computer.navigation_group') : parent::getNavigationGroup();
+        return __('app.models.user.navigation_group') !== 'app.models.user.navigation_group' ? __('app.models.user.navigation_group') : parent::getNavigationGroup();
     }
 }
