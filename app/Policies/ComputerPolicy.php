@@ -18,7 +18,7 @@ class ComputerPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->can('view_any_computer');
     }
 
     /**
@@ -30,7 +30,7 @@ class ComputerPolicy
      */
     public function view(User $user, Computer $computer)
     {
-        return true;
+        return $user->can('view_computer');
     }
 
     /**
@@ -41,7 +41,7 @@ class ComputerPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->can('create_computer');
     }
 
     /**
@@ -53,7 +53,7 @@ class ComputerPolicy
      */
     public function update(User $user, Computer $computer)
     {
-        return true;
+        return $user->can('update_computer');
     }
 
     /**
@@ -65,7 +65,7 @@ class ComputerPolicy
      */
     public function delete(User $user, Computer $computer)
     {
-        return true;
+        return $user->can('delete_computer');
     }
 
     /**
@@ -77,7 +77,7 @@ class ComputerPolicy
      */
     public function restore(User $user, Computer $computer)
     {
-        return true;
+        return $user->can('restore_computer');
     }
 
     /**
@@ -89,6 +89,6 @@ class ComputerPolicy
      */
     public function forceDelete(User $user, Computer $computer)
     {
-        return true;
+        return $user->can('force_delete_computer');
     }
 }
