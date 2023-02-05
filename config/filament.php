@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RedirectFilament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -315,6 +316,7 @@ return [
 
     'middleware' => [
         'auth' => [
+            RedirectFilament::class,
             Authenticate::class,
         ],
         'base' => [
