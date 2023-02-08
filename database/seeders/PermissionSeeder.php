@@ -35,6 +35,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'shutdown_computer',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'force_shutdown_computer',
+                'guard_name' => 'web',
+            ],
         ];
 
         $cruds = ['view_any', 'view', 'create', 'update', 'delete', 'delete_any', 'restore', 'restore_any', 'force_delete', 'force_delete_any'];
