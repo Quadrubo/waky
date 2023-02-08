@@ -23,6 +23,18 @@ class PermissionSeeder extends Seeder
                 'name' => 'access_filament',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'wake_computer',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'use_computer',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'shutdown_computer',
+                'guard_name' => 'web',
+            ],
         ];
 
         $cruds = ['view_any', 'view', 'create', 'update', 'delete', 'delete_any', 'restore', 'restore_any', 'force_delete', 'force_delete_any'];
@@ -32,6 +44,7 @@ class PermissionSeeder extends Seeder
             'role',
             // -----
             'computer',
+            'ssh_key',
         ];
 
         foreach ($cruds as $crud) {

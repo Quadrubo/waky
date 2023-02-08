@@ -21,6 +21,9 @@ class Computer extends Model
         'name',
         'mac_address',
         'ip_address',
+        'ssh_user',
+        's_s_h_key_id',
+        'ssh_shutdown_command',
     ];
 
     public function wake() {
@@ -41,5 +44,9 @@ class Computer extends Model
 
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+
+    public function sSHKey() {
+        return $this->belongsTo(SSHKey::class);
     }
 }
