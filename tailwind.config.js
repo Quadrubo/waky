@@ -10,6 +10,13 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    safelist: [
+        'text-red-400',
+        'text-blue-400',
+        'text-green-400',
+        'text-yellow-400',
+    ],
+
     theme: {
         extend: {
             fontFamily: {

@@ -32,6 +32,6 @@ class ShutdownComputerAction
             return back();
         }
 
-        ShutdownComputer::dispatch($computer);
+        ShutdownComputer::dispatch($computer, Auth::user());
     }
 }
