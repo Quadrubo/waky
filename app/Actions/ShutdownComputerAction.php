@@ -20,7 +20,7 @@ class ShutdownComputerAction
             return back();
         }
 
-        if (Auth::user()->cannot('shutdown', $computer)) {
+        if (!Auth::user()->canShutdownComputer($computer)) {
             return back();
         }
 

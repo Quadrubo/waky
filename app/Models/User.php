@@ -66,4 +66,17 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->can('access_filament');
     }
+
+    public function canShutdownComputer(Computer $computer): bool
+    {
+        if ($this->can('force_shutdown_computer', $computer)) {
+            return true;
+        }
+
+        if ($this->can('shutdown_computer', $computer) && $computer->users()->count() === 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

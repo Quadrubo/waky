@@ -109,4 +109,9 @@ class ComputerPolicy
         // TODO
         return $user->can('shutdown_computer');
     }
+
+    public function forceShutdown(User $user, Computer $computer)
+    {
+        return $user->can('force_shutdown_computer');
+    }
 }
