@@ -13,6 +13,10 @@ let wakeComputer = ((id) => {
     router.post(route('computers.wake', id));
 });
 
+let shutdownComputer = ((id) => {
+    router.post(route('computers.shutdown', id));
+});
+
 let pingComputers = (() => {
     router.post(route('computers.ping'));
 });
@@ -55,6 +59,9 @@ let useComputer = ((id) => {
                                     <span>
                                         <IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton>
                                     </span>
+                                    <span>
+                                        <IndigoButton @click="shutdownComputer(computer.id)">Shutdown</IndigoButton>
+                                    </span>
                                     <div class="space-x-2">
                                         <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>
                                         <span>{{ computer.users }}</span>
@@ -83,6 +90,7 @@ let useComputer = ((id) => {
                                     <th scope="col" class="px-6 py-4">Mac Address</th>
                                     <th scope="col" class="px-6 py-4">IP Address</th>
                                     <th scope="col" class="px-6 py-4">Wake-Up</th>
+                                    <th scope="col" class="px-6 py-4">Shutdown</th>
                                     <th scope="col" class="px-6 py-4">In use by</th>
                                     <th scope="col" class="px-6 py-4">Status</th>
                                 </tr>
@@ -93,6 +101,7 @@ let useComputer = ((id) => {
                                     <td class="px-6 py-4">{{ computer.mac_address }}</td>
                                     <td class="px-6 py-4">{{ computer.ip_address }}</td>
                                     <td class="px-6 py-4"><IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton></td>
+                                    <td class="px-6 py-4"><IndigoButton @click="shutdownComputer(computer.id)">Shutdown</IndigoButton></td>
                                     <td class="px-6 py-4">
                                         <div class="flex flex-row justify-evenly items-center">
                                             <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>

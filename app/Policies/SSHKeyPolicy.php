@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Computer;
+use App\Models\SSHKey;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ComputerPolicy
+class SSHKeyPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class ComputerPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_computer');
+        return $user->can('view_any_ssh_key');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Computer  $computer
+     * @param  \App\Models\SSHKey  $ssh_key
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Computer $computer)
+    public function view(User $user, SSHKey $ssh_key)
     {
-        return $user->can('view_computer');
+        return $user->can('view_ssh_key');
     }
 
     /**
@@ -41,72 +41,54 @@ class ComputerPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_computer');
+        return $user->can('create_ssh_key');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Computer  $computer
+     * @param  \App\Models\SSHKey  $ssh_key
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Computer $computer)
+    public function update(User $user, SSHKey $ssh_key)
     {
-        return $user->can('update_computer');
+        return $user->can('update_ssh_key');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Computer  $computer
+     * @param  \App\Models\SSHKey  $ssh_key
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Computer $computer)
+    public function delete(User $user, SSHKey $ssh_key)
     {
-        return $user->can('delete_computer');
+        return $user->can('delete_ssh_key');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Computer  $computer
+     * @param  \App\Models\SSHKey  $ssh_key
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Computer $computer)
+    public function restore(User $user, SSHKey $ssh_key)
     {
-        return $user->can('restore_computer');
+        return $user->can('restore_ssh_key');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Computer  $computer
+     * @param  \App\Models\SSHKey  $ssh_key
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Computer $computer)
+    public function forceDelete(User $user, SSHKey $ssh_key)
     {
-        return $user->can('force_delete_computer');
-    }
-
-    public function wake(User $user, Computer $computer)
-    {
-        // TODO
-        return $user->can('wake_computer');
-    }
-
-    public function use(User $user, Computer $computer)
-    {
-        // TODO
-        return $user->can('use_computer');
-    }
-
-    public function shutdown(User $user, Computer $computer)
-    {
-        // TODO
-        return $user->can('shutdown_computer');
+        return $user->can('force_delete_ssh_key');
     }
 }

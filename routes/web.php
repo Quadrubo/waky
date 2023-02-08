@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\WakeComputerController;
 use App\Http\Controllers\PingComputerController;
+use App\Http\Controllers\ShutdownComputerController;
 use App\Http\Controllers\UseComputerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::middleware([
             ->only(['index']);
     
     Route::post('/computers/{computer}/wake', WakeComputerController::class)->name('computers.wake');
+    Route::post('/computers/{computer}/shutdown', ShutdownComputerController::class)->name('computers.shutdown');
     Route::post('/computers/ping', PingComputerController::class)->name('computers.ping');
     Route::post('/computers/{computer}/use', UseComputerController::class)->name('computers.use');
 });

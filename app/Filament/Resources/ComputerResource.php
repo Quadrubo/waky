@@ -50,6 +50,23 @@ class ComputerResource extends Resource
                                 'default' => 1,
                                 'sm' => 2,
                             ]),
+                        Forms\Components\Section::make(__('app.filament.forms.sections.ssh_information.label'))
+                            ->schema([
+                                Forms\Components\TextInput::make('ssh_user')
+                                    ->maxLength(255)
+                                    ->autofocus()
+                                    ->localize('app.models.computer.attributes.ssh_user'),
+                                Forms\Components\Select::make('s_s_h_key_id')
+                                    ->relationship('sSHKey', 'name')
+                                    ->localize('app.models.computer.relations.ssh_key'),
+                                Forms\Components\TextInput::make('ssh_shutdown_command')
+                                    ->maxLength(255)
+                                    ->localize('app.models.computer.attributes.ssh_shutdown_command'),
+                            ])
+                            ->columns([
+                                'default' => 1,
+                                'sm' => 2,
+                            ]),
                     ])
                     ->columnSpan([
                         'default' => 1,

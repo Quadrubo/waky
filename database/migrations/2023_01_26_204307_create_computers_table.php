@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('ip_address');
             $table->string('status')->nullable();
             $table->dateTime('status_updated_at')->nullable();
+
+            $table->string('ssh_user')->nullable();
+            $table->string('ssh_shutdown_command')->nullable();
+
+            $table->foreignId('s_s_h_key_id')->nullable()->constrained('s_s_h_keys')->nullOnDelete();
+
             $table->timestamps();
         });
     }
