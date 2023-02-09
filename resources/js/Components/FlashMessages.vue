@@ -1,5 +1,5 @@
 <script setup>
-import FlashMessage from '@/Components/BasicFlashMessage.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 import { ref } from 'vue';
 import { usePage, router } from '@inertiajs/vue3';
 
