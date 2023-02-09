@@ -49,4 +49,8 @@ class Computer extends Model
     public function sSHKey() {
         return $this->belongsTo(SSHKey::class);
     }
+
+    public function isInUse() {
+        return $this->users()->count() !== 0;
+    }
 }

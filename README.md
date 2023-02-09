@@ -97,6 +97,13 @@ The project is a pretty simple Laravel app. The admin panel is built using [Fila
 
 There is also the [TODO.md](TODO.md) file, filled with stuff that is left to do. 
 
+### Usage
+
+#### Discord Webhook Notifications
+
+Discord Webhook Notification support is build in. Just create a webhook on your discord server and set the `DISCORD_WEBHOOK_URL` variable in your `.env` file.  
+This sends you notifications when a computer switches from no to one or one to no users.
+
 ## Running the tests
 
 ```
