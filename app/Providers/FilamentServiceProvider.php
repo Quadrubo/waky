@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Blade;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,14 @@ class FilamentServiceProvider extends ServiceProvider
     public function boot()
     {
         Filament::serving(function () {
+            Filament::registerViteTheme('resources/css/filament.css');
+
+            // Load the font from spatie google fonts package
+            Filament::registerRenderHook(
+                'body.start',
+                fn (): string => Blade::render('@googlefonts(\'filament\')'),
+            );
+
             \Filament\Support\Components\ViewComponent::macro('localize', function (?string $translatorPrefix = '', ?bool $label = true, ?bool $helper = true, ?bool $hint = true, ?bool $datetime = false, ?array $labelAttributes = [], ?array $helperAttributes = [], ?array $hintAttributes = []) {
                 if (! str_ends_with($translatorPrefix, '.')) {
                     $translatorPrefix = $translatorPrefix.'.';
