@@ -33,6 +33,28 @@ class RoleHasPermissionsSeeder extends Seeder
 
         DB::table('role_has_permissions')->insert($data);
 
+        // User
+        $role = Role::where('name', 'user')->firstOrFail();
+        $permissions = [
+            'wake_computer',
+            'use_computer',
+            'shutdown_computer',
+        ];
+
+        $permissions = Permission::whereIn('name', $permissions)->get();
+        $fields = ['permission_id', 'role_id'];
+
+        $existingData = json_decode(DB::table('role_has_permissions')->select($fields)->get()->toJson(), true);
+        $data = [];
+
+        foreach ($permissions as $permission) {
+            array_push($data, ['permission_id' => $permission->id, 'role_id' => $role->id]);
+        }
+
+        $data = (new FieldArrayDiffAction())->execute($data, $existingData, $fields);
+
+        DB::table('role_has_permissions')->insert($data);
+
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 }

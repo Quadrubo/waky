@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\WakeComputerAction;
 use App\Models\Computer;
 use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Http\Request;
@@ -16,14 +17,8 @@ class WakeComputerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Computer $computer)
+    public function __invoke(Computer $computer, WakeComputerAction $wakeComputerAction)
     {
-        $result = $computer->wake();
-
-        if ($result['result'] == 'OK') {
-            $this->banner($result['message']);
-        } else {
-            $this->banner($result['message'], 'danger');
-        }
+        $wakeComputerAction->execute($computer);
     }
 }

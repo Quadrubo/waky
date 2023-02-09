@@ -52,6 +52,47 @@ class Computer extends Model
         return $this->belongsTo(SSHKey::class);
     }
 
+    public function canBeShutdownBy(User $user)
+    {
+        if ($user->can('force_shutdown_computer', $this)) {
+            return true;
+        }
+
+        if ($user->can('shutdown_computer') && ! $this->isInUse()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canBeUsedBy(User $user)
+    {
+        if ($user->can('use_computer', $this)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canBeUnusedBy(User $user)
+    {
+        if ($user->can('use_computer', $this)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canBeWokenUpBy(User $user)
+    {
+        if ($user->can('wake_computer', $this)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public function isInUse()
     {
         return $this->users()->count() !== 0;

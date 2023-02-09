@@ -17,7 +17,7 @@ class UseComputerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Computer $computer, UseComputerAction $useComputerAction, UnuseComputerAction $unuseComputerAction, SendComputerNotificationAction $sendComputerNotificationAction)
+    public function __invoke(Computer $computer, UseComputerAction $useComputerAction, UnuseComputerAction $unuseComputerAction)
     {
         if ($computer->users->contains(Auth::user())) {
             $unuseComputerAction->execute($computer);
