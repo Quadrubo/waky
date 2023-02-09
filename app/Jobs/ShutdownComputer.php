@@ -12,7 +12,7 @@ use Acamposm\Ping\Ping;
 use Acamposm\Ping\PingCommandBuilder;
 use App\Models\Computer;
 use App\Models\User;
-use App\Notifications\ShutdownComputerFeedback;
+use App\Notifications\FlashMessageNotification;
 use App\Support\Concerns\InteractsWithBanner;
 use ErrorException;
 use Spatie\Ssh\Ssh;
@@ -53,7 +53,7 @@ class ShutdownComputer implements ShouldQueue
      */
     public function handle()
     {       
-        $this->user->notify(new ShutdownComputerFeedback('Shutting down computer...', 'info'));
+        $this->user->notify(new FlashMessageNotification('Shutting down computer...', 'info'));
      
         $process = Ssh::create($this->computer->ssh_user, $this->computer->ip_address)
             ->addExtraOption('-o ConnectTimeout=10')
@@ -63,19 +63,19 @@ class ShutdownComputer implements ShouldQueue
             ->execute($this->computer->ssh_shutdown_command);
 
         if ($process->getExitCode() === 255) {
-            $this->user->notify(new ShutdownComputerFeedback('Computer not reachable, maybe it is already shut down.', 'danger'));
+            $this->user->notify(new FlashMessageNotification('Computer not reachable, maybe it is already shut down.', 'danger'));
 
             return;
         }
 
         if ($process->getExitCode() !== 0) {
-            $this->user->notify(new ShutdownComputerFeedback('Computer failed to shutdown,', 'danger'));
+            $this->user->notify(new FlashMessageNotification('Computer failed to shutdown,', 'danger'));
 
             ray($process, $process->getExitCode(), $process->getOutput());
 
             return;
         }
 
-        $this->user->notify(new ShutdownComputerFeedback('Computer successfully shutdown.', 'success'));
+        $this->user->notify(new FlashMessageNotification('Computer successfully shutdown.', 'success'));
     }
 }

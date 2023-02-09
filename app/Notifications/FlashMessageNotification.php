@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ShutdownComputerFeedback extends Notification implements ShouldBroadcast
+class FlashMessageNotification extends Notification implements ShouldBroadcast
 {
     public string $message;
 
