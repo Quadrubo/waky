@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\SendComputerNotificationAction;
+use App\Actions\UnuseComputerAction;
+use App\Actions\UseComputerAction;
 use App\Models\Computer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +17,13 @@ class UseComputerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Computer $computer)
+    public function __invoke(Computer $computer, UseComputerAction $useComputerAction, UnuseComputerAction $unuseComputerAction, SendComputerNotificationAction $sendComputerNotificationAction)
     {
         if ($computer->users->contains(Auth::user())) {
-            $computer->users()->detach(Auth::user());
+            $unuseComputerAction->execute($computer);
             return;
         }
 
-        $computer->users()->attach(Auth::user());
+        $useComputerAction->execute($computer);
     }
 }

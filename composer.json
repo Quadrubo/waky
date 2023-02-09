@@ -12,6 +12,7 @@
         "geerlingguy/ping": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
+        "laravel-notification-channels/webhook": "^2.4",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.16",
         "laravel/sanctum": "^3.0",
