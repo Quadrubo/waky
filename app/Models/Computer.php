@@ -92,7 +92,6 @@ class Computer extends Model
         return false;
     }
 
-
     public function isInUse()
     {
         return $this->users()->count() !== 0;
