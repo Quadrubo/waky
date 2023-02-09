@@ -32,6 +32,20 @@ class ModelHasRolesSeeder extends Seeder
             }
         }
 
+        // User
+        $roles = Role::where('name', 'user')->firstOrFail();
+        $user = User::where('name', 'user')->firstOrFail();
+
+        if (App::environment(['local', 'staging'])) {
+            if (DB::table('model_has_roles')->where('role_id', $role->id)->where('model_id', $user->id)->count() == 0) {
+                DB::table('model_has_roles')->insert([
+                    'role_id' => $role->id,
+                    'model_type' => 'App\Models\User',
+                    'model_id' => $user->id,
+                ]);
+            }
+        }
+
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 }

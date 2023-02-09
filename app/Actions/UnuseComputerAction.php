@@ -15,9 +15,9 @@ class UnuseComputerAction
             return back();
         }
 
-        // if (!Auth::user()->canShutdownComputer($computer)) {
-        //     return back();
-        // }
+        if (! $computer->canBeUnusedBy(Auth::user())) {
+            return back();
+        }
 
         $usersCountBefore = $computer->users()->count();
 

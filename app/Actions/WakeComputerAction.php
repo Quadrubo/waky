@@ -2,12 +2,15 @@
 
 namespace App\Actions;
 
-use App\Jobs\ShutdownComputer;
 use App\Models\Computer;
+use App\Models\User;
+use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Support\Facades\Auth;
 
-class ShutdownComputerAction
+class WakeComputerAction
 {
+    use InteractsWithBanner;
+
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
@@ -15,18 +18,16 @@ class ShutdownComputerAction
             return back();
         }
 
-        if (! $computer->canBeShutdownBy(Auth::user())) {
+        if (! $computer->canBeWokenUpBy(Auth::user())) {
             return back();
         }
 
-        if (! $computer->ssh_user || ! $computer->ssh_shutdown_command) {
-            return back();
-        }
+        $result = $computer->wake();
 
-        if ($computer->sSHKey()->count() == 0) {
-            return back();
+        if ($result['result'] == 'OK') {
+            $this->banner($result['message']);
+        } else {
+            $this->banner($result['message'], 'danger');
         }
-
-        ShutdownComputer::dispatch($computer, Auth::user());
     }
 }
