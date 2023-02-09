@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComputerResource\Pages;
-use App\Filament\Resources\ComputerResource\RelationManagers;
 use App\Models\Computer;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -12,7 +11,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -139,14 +137,14 @@ class ComputerResource extends Resource
             ])
             ->defaultSort('name');
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -155,8 +153,8 @@ class ComputerResource extends Resource
             'view' => Pages\ViewComputer::route('/{record}'),
             'edit' => Pages\EditComputer::route('/{record}/edit'),
         ];
-    }   
-    
+    }
+
     /**
      * Get the advanced search result Details.
      *

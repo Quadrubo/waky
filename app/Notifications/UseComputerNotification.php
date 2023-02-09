@@ -2,11 +2,9 @@
 
 namespace App\Notifications;
 
-use App\Models\Computer;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Webhook\WebhookChannel;
 use NotificationChannels\Webhook\WebhookMessage;
@@ -57,7 +55,7 @@ class UseComputerNotification extends Notification implements ShouldQueue
                         'description' => $this->getEmbedDescription(),
                         'color' => $this->getEmbedColor(),
                         'timestamp' => $this->timestamp,
-                    ]
+                    ],
                 ],
             ])
             ->header('Content-Type', 'application/json');
@@ -65,12 +63,12 @@ class UseComputerNotification extends Notification implements ShouldQueue
 
     public function getEmbedTitle()
     {
-        return 'Computer ' . trim($this->computerName) . ' is now ' . ($this->computerInUse ? 'in use.' : 'not in use.');
+        return 'Computer '.trim($this->computerName).' is now '.($this->computerInUse ? 'in use.' : 'not in use.');
     }
 
     public function getEmbedDescription()
     {
-        return !$this->computerInUse ? 'Maybe you can shut it down?' : '';
+        return ! $this->computerInUse ? 'Maybe you can shut it down?' : '';
     }
 
     public function getEmbedColor()

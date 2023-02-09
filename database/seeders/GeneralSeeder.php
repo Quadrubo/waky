@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Actions\FieldArrayDiff;
 use App\Actions\FieldArrayDiffAction;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -14,7 +13,7 @@ class GeneralSeeder extends Seeder
      *
      * @return void
      */
-    public function run(string $class, array $fields, array $data, bool $hasRelationships = false, bool $addTimestamps = true, FieldArrayDiffAction $fieldArrayDiffAction)
+    public function run(string $class, array $fields, array $data, bool $hasRelationships, bool $addTimestamps, FieldArrayDiffAction $fieldArrayDiffAction)
     {
         $allFields = [];
 

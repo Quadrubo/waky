@@ -54,7 +54,7 @@ return [
     'models' => [
 
         'computer' => [
-          
+
             'label' => 'Computer',
             'plural_label' => 'Computers',
             'navigation_group' => 'Content',
