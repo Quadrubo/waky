@@ -24,6 +24,7 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.13",
         "doctrine/dbal": "^3.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
