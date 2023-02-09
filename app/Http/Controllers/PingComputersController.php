@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\PingComputers;
+use App\Actions\PingComputersAction;
 
-class PingComputerController extends Controller
+class PingComputersController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -12,8 +12,8 @@ class PingComputerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function __invoke(PingComputersAction $pingComputersAction)
     {
-        PingComputers::dispatch();
+        $pingComputersAction->execute();
     }
 }

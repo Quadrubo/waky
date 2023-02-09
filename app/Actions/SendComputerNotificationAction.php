@@ -12,14 +12,12 @@ class SendComputerNotificationAction
     public function execute(Computer $computer, int $countBefore, int $countAfter)
     {
         if ($computer->users()->count() !== $countAfter) {
-            //
-            return back();
+            return;
         }
 
         // Cancel if the count neither went to 0 or from 0
         if (! (($countBefore === 1 && $countAfter === 0) || ($countBefore === 0 && $countAfter === 1))) {
-            //
-            return back();
+            return;
         }
 
         if (config('services.discord.webhook_url')) {
