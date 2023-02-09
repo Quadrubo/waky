@@ -49,17 +49,15 @@ class ShutdownComputer implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->notify(new FlashMessageNotification('Shutting down computer...', 'info'));
-
         $process = Ssh::create($this->computer->ssh_user, $this->computer->ip_address)
-            ->addExtraOption('-o ConnectTimeout=10')
+            ->addExtraOption('-o ConnectTimeout=10 -oBatchMode=yes')
             ->disableStrictHostKeyChecking()
             ->usePrivateKey($this->computer->sSHKey()->first()->private_file)
             ->disablePasswordAuthentication()
             ->execute($this->computer->ssh_shutdown_command);
 
         if ($process->getExitCode() === 255) {
-            $this->user->notify(new FlashMessageNotification('Computer not reachable, maybe it is already shut down.', 'danger'));
+            $this->user->notify(new FlashMessageNotification('Computer not reachable, maybe it is already shut down or the SSH Key is wrong.', 'danger'));
 
             return;
         }
