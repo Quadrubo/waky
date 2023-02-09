@@ -58,7 +58,6 @@ export default {
 
     computed: {
         notification() {
-            console.log(this.message);
             return this.message;
         },
     },

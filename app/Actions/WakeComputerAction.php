@@ -13,20 +13,23 @@ class WakeComputerAction
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
-            // flash()->overlay('Sie müssen angemeldet sein um die Warteliste zu benutzen.', 'Fehler')->error();
+            flash('You have to be authenticated to wake a computer.')->error();
+
             return back();
         }
 
         if (! $computer->canBeWokenUpBy(Auth::user())) {
+            flash('You are not authorized to wake this computer.')->error();
+
             return back();
         }
 
         $result = $computer->wake();
 
         if ($result['result'] == 'OK') {
-            $this->banner($result['message']);
+            flash()->overlay($result['message'], 'Computer is waking up...')->success();
         } else {
-            $this->banner($result['message'], 'danger');
+            flash()->overlay($result['message'], 'An error occured')->error();
         }
     }
 }

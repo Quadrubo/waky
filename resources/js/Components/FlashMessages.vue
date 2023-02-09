@@ -1,14 +1,22 @@
 <script setup>
 import FlashMessage from '@/Components/BasicFlashMessage.vue';
 import { ref } from 'vue';
+import { usePage, router } from '@inertiajs/vue3';
 
-let notifications = ref([]);
+let notifications = ref(usePage().props.flash);
+
+router.on('success', (event) => {
+    let page_flash = usePage().props.flash;
+
+    page_flash.forEach(flash_message => {
+        notifications.value.push(flash_message);
+    });
+});
 
 Echo.private('App.Models.User.1')
     .notification((notification) => {
         notifications.value.push(notification);
     });
-
 </script>
 
 <template>

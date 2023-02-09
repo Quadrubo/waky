@@ -10,11 +10,14 @@ class UnuseComputerAction
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
-            // flash()->overlay('Sie müssen angemeldet sein um die Warteliste zu benutzen.', 'Fehler')->error();
+            flash('You have to be authenticated to use a computer.')->error();
+
             return back();
         }
 
         if (! $computer->canBeUnusedBy(Auth::user())) {
+            flash('You are not authorized to use a computer.')->error();
+
             return back();
         }
 
