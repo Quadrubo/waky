@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PermissionResource\Pages;
 use App\Filament\Resources\PermissionResource\RelationManagers;
+use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -14,11 +15,15 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionResource extends Resource
 {
+    use ResourceMetadata;
+
     protected static ?string $model = Permission::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
+
+    protected static ?string $translationPrefix = 'app.models.permission';
 
     public static function form(Form $form): Form
     {
@@ -131,20 +136,5 @@ class PermissionResource extends Resource
             'edit' => Pages\EditPermission::route('/{record}/edit'),
             'view' => Pages\ViewPermission::route('/{record}'),
         ];
-    }
-
-    public static function getModelLabel(): string
-    {
-        return __('app.models.permission.label') !== 'app.models.permission.label' ? __('app.models.permission.label') : parent::getModelLabel();
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('app.models.permission.plural_label') !== 'app.models.permission.plural_label' ? __('app.models.permission.plural_label') : parent::getPluralModelLabel();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('app.models.permission.navigation_group') !== 'app.models.permission.navigation_group' ? __('app.models.permission.navigation_group') : parent::getNavigationGroup();
     }
 }

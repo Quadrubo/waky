@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Tables\Filters as CustomFilters;
 use App\Models\User;
+use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -19,11 +20,15 @@ use Livewire\Component;
 
 class UserResource extends Resource
 {
+    use ResourceMetadata;
+
     protected static ?string $model = User::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $translationPrefix = 'app.models.user';
 
     public static function form(Form $form): Form
     {
@@ -196,20 +201,5 @@ class UserResource extends Resource
     public static function getGlobalSearchResultUrl(Model $record): string
     {
         return route('filament.resources.users.view', ['record' => $record]);
-    }
-
-    public static function getModelLabel(): string
-    {
-        return __('app.models.user.label') !== 'app.models.user.label' ? __('app.models.user.label') : parent::getModelLabel();
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('app.models.user.plural_label') !== 'app.models.user.plural_label' ? __('app.models.user.plural_label') : parent::getPluralModelLabel();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('app.models.user.navigation_group') !== 'app.models.user.navigation_group' ? __('app.models.user.navigation_group') : parent::getNavigationGroup();
     }
 }

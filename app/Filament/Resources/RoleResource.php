@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -14,11 +15,15 @@ use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
 {
+    use ResourceMetadata;
+
     protected static ?string $model = Role::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?string $translationPrefix = 'app.models.role';
 
     public static function form(Form $form): Form
     {
@@ -132,20 +137,5 @@ class RoleResource extends Resource
             'edit' => Pages\EditRole::route('/{record}/edit'),
             'view' => Pages\ViewRole::route('/{record}'),
         ];
-    }
-
-    public static function getModelLabel(): string
-    {
-        return __('app.models.role.label') !== 'app.models.role.label' ? __('app.models.role.label') : parent::getModelLabel();
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('app.models.role.plural_label') !== 'app.models.role.plural_label' ? __('app.models.role.plural_label') : parent::getPluralModelLabel();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('app.models.role.navigation_group') !== 'app.models.role.navigation_group' ? __('app.models.role.navigation_group') : parent::getNavigationGroup();
     }
 }
