@@ -19,13 +19,13 @@ class RedirectFilament
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
- 
+
         if ($user instanceof FilamentUser) {
             if (! $user->canAccessFilament()) {
                 return redirect()->route('computers.index');
             }
         }
-    
+
         return $next($request);
     }
 }

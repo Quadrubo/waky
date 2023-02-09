@@ -2,19 +2,15 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Acamposm\Ping\Ping;
-use Acamposm\Ping\PingCommandBuilder;
 use App\Models\Computer;
 use App\Models\User;
 use App\Notifications\FlashMessageNotification;
 use App\Support\Concerns\InteractsWithBanner;
-use ErrorException;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Spatie\Ssh\Ssh;
 
 class ShutdownComputer implements ShouldQueue
@@ -30,7 +26,7 @@ class ShutdownComputer implements ShouldQueue
 
     /**
      * The user that dispatched the job.
-     * 
+     *
      * @var \App\Models\User
      */
     public $user;
@@ -52,9 +48,9 @@ class ShutdownComputer implements ShouldQueue
      * @return void
      */
     public function handle()
-    {       
+    {
         $this->user->notify(new FlashMessageNotification('Shutting down computer...', 'info'));
-     
+
         $process = Ssh::create($this->computer->ssh_user, $this->computer->ip_address)
             ->addExtraOption('-o ConnectTimeout=10')
             ->disableStrictHostKeyChecking()

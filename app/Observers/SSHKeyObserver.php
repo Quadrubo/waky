@@ -20,11 +20,11 @@ class SSHKeyObserver
         $public = $private->getPublicKey();
 
         $privateKeyName = $sSHKey->name;
-        $publicKeyName = $sSHKey->name . '.pub';
+        $publicKeyName = $sSHKey->name.'.pub';
 
         $privateSSHKey = $private->toString('OpenSSH');
         $publicSSHKey = $public->toString('OpenSSH');
-        
+
         Storage::disk('private')->put($privateKeyName, $privateSSHKey);
         Storage::disk('private')->put($publicKeyName, $publicSSHKey);
 

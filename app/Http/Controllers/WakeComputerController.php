@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\WakeComputer;
 use App\Models\Computer;
 use App\Support\Concerns\InteractsWithBanner;
-use Diegonz\PHPWakeOnLan\PHPWakeOnLan;
 use Illuminate\Http\Request;
 
 class WakeComputerController extends Controller
@@ -22,7 +20,7 @@ class WakeComputerController extends Controller
     {
         $result = $computer->wake();
 
-        if ($result['result'] == "OK") {
+        if ($result['result'] == 'OK') {
             $this->banner($result['message']);
         } else {
             $this->banner($result['message'], 'danger');

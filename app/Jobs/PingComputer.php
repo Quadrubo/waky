@@ -2,17 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Models\Computer;
+use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Acamposm\Ping\Ping;
-use Acamposm\Ping\PingCommandBuilder;
-use App\Models\Computer;
-use App\Support\Concerns\InteractsWithBanner;
-use ErrorException;
 
 class PingComputer implements ShouldQueue
 {
@@ -41,7 +37,7 @@ class PingComputer implements ShouldQueue
      * @return void
      */
     public function handle()
-    {              
+    {
         $ipAddress = $this->computer->ip_address;
 
         $ping = new \JJG\Ping($ipAddress);

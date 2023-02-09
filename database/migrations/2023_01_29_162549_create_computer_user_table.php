@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('computer_id')->unsigned()->constrained()->cascadeOnDelete();
             $table->bigInteger('user_id')->unsigned()->constrained()->cascadeOnDelete();
-            
+
             $table->unique(['computer_id', 'user_id']);
             $table->timestamps();
         });

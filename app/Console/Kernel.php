@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Jobs\PingComputer;
 use App\Jobs\PingComputers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

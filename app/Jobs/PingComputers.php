@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Computer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,7 +32,7 @@ class PingComputers implements ShouldQueue
     {
         $computers = Computer::all();
 
-        $computers->each(function($computer) {
+        $computers->each(function ($computer) {
             PingComputer::dispatch($computer);
         });
     }

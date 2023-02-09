@@ -6,7 +6,6 @@ use Diegonz\PHPWakeOnLan\PHPWakeOnLan;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use stdClass;
 
 class Computer extends Model
 {
@@ -26,7 +25,8 @@ class Computer extends Model
         'ssh_shutdown_command',
     ];
 
-    public function wake() {
+    public function wake()
+    {
         $macAddress = [$this->mac_address];
 
         try {
@@ -42,15 +42,18 @@ class Computer extends Model
         }
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class);
     }
 
-    public function sSHKey() {
+    public function sSHKey()
+    {
         return $this->belongsTo(SSHKey::class);
     }
 
-    public function isInUse() {
+    public function isInUse()
+    {
         return $this->users()->count() !== 0;
     }
 }

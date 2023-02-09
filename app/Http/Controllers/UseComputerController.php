@@ -21,6 +21,7 @@ class UseComputerController extends Controller
     {
         if ($computer->users->contains(Auth::user())) {
             $unuseComputerAction->execute($computer);
+
             return;
         }
 

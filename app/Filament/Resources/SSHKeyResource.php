@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SSHKeyResource\Pages;
-use App\Filament\Resources\SSHKeyResource\RelationManagers;
 use App\Models\SSHKey;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SSHKeyResource extends Resource
 {
@@ -58,14 +55,14 @@ class SSHKeyResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -74,5 +71,5 @@ class SSHKeyResource extends Resource
             'view' => Pages\ViewSSHKey::route('/{record}'),
             'edit' => Pages\EditSSHKey::route('/{record}/edit'),
         ];
-    }    
+    }
 }

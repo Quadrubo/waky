@@ -50,7 +50,7 @@ return [
             'url' => env('APP_URL').'/storage',
             'visiblity' => 'private',
             'throw' => false,
-        ],  
+        ],
 
         's3' => [
             'driver' => 's3',
