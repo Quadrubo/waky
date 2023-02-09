@@ -53,6 +53,30 @@ return [
 
     'models' => [
 
+        'ssh_key' => [
+
+            'label' => 'SSH Key',
+            'plural_label' => 'SSH Keys',
+            'navigation_group' => 'Content',
+
+            'attributes' => [
+
+                'public_file' => [
+                    'label' => 'Public Key File',
+                    'helper' => '',
+                    'hint' => '',
+                ],
+
+                'private_file' => [
+                    'label' => 'Private Key File',
+                    'helper' => '',
+                    'hint' => '',
+                ],
+
+            ],
+
+        ],
+
         'computer' => [
 
             'label' => 'Computer',
@@ -69,6 +93,28 @@ return [
 
                 'ip_address' => [
                     'label' => 'IP Address',
+                    'helper' => '',
+                    'hint' => '',
+                ],
+
+                'ssh_user' => [
+                    'label' => 'SSH User',
+                    'helper' => '',
+                    'hint' => '',
+                ],
+
+                'ssh_shutdown_command' => [
+                    'label' => 'SSH Shutdown Command',
+                    'helper' => '',
+                    'hint' => '',
+                ],
+
+            ],
+
+            'relations' => [
+
+                'ssh_key' => [
+                    'label' => 'SSH Key',
                     'helper' => '',
                     'hint' => '',
                 ],
@@ -239,6 +285,10 @@ return [
 
                 'additional_information' => [
                     'label' => 'Additional information',
+                ],
+
+                'ssh_information' => [
+                    'label' => 'Remote shutdown SSH information',
                 ],
 
             ],

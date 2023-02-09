@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Models\Computer;
+use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -16,11 +17,15 @@ use Livewire\Component;
 
 class ComputerResource extends Resource
 {
+    use ResourceMetadata;
+
     protected static ?string $model = Computer::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationIcon = 'heroicon-o-desktop-computer';
+
+    protected static ?string $translationPrefix = 'app.models.computer';
 
     public static function form(Form $form): Form
     {
@@ -194,20 +199,5 @@ class ComputerResource extends Resource
     public static function getGlobalSearchResultUrl(Model $record): string
     {
         return route('filament.resources.computers.view', ['record' => $record]);
-    }
-
-    public static function getModelLabel(): string
-    {
-        return __('app.models.computer.label') !== 'app.models.computer.label' ? __('app.models.computer.label') : parent::getModelLabel();
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('app.models.computer.plural_label') !== 'app.models.computer.plural_label' ? __('app.models.computer.plural_label') : parent::getPluralModelLabel();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('app.models.computer.navigation_group') !== 'app.models.computer.navigation_group' ? __('app.models.computer.navigation_group') : parent::getNavigationGroup();
     }
 }
