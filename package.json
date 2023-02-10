@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build && vite build --ssr"
+        "build": "vite build && vite build --ssr",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
@@ -12,8 +13,10 @@
         "@vue/server-renderer": "^3.2.31",
         "autoprefixer": "^10.4.13",
         "axios": "^1.1.2",
+        "husky": "^8.0.3",
         "laravel-echo": "^1.15.0",
         "laravel-vite-plugin": "^0.7.2",
+        "lint-staged": "^13.1.1",
         "lodash": "^4.17.19",
         "postcss": "^8.4.14",
         "prettier": "2.8.4",
@@ -23,5 +26,9 @@
         "tippy.js": "^6.3.7",
         "vite": "^4.0.0",
         "vue": "^3.2.31"
+    },
+    "lint-staged": {
+        "**/*.php": "./vendor/bin/pint",
+        "**/*": "prettier --write --ignore-unknown"
     }
 }
