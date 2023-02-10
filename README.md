@@ -55,14 +55,14 @@ sail artisan db:seed --class DevelopmentSeeder
 ```
 
 Running the scheduler.  
-_The scheduler is responsible for starting the jobs in regular intervals._
+*The scheduler is responsible for starting the jobs in regular intervals.*
 
 ```
 sail artisan schedule:work
 ```
 
 Running the queue.  
-_The queue is responsilbe for executing the jobs like pinging the computers._
+*The queue is responsilbe for executing the jobs like pinging the computers.*
 
 ```
 sail artisan queue:work
@@ -95,7 +95,7 @@ You can access the admin panel at `/admin`.
 
 The project is a pretty simple Laravel app. The admin panel is built using [Filament](https://github.com/filamentphp/filament). The rest of the site was scaffolded with [Laravel Jetstream](https://github.com/laravel/jetstream) and is using the [Inertia Stack](https://jetstream.laravel.com/2.x/stacks/inertia.html).
 
-There is also the [TODO.md](TODO.md) file, filled with stuff that is left to do.
+There is also the [TODO.md](TODO.md) file, filled with stuff that is left to do. 
 
 ### Usage
 
@@ -144,7 +144,7 @@ I already opened a Pull request with the fix on the repository. You can check th
 
 ## Built With
 
--   [Laravel](https://github.com/laravel/framework) - Framework
+  - [Laravel](https://github.com/laravel/framework) - Framework
 
 ## Contributing
 
@@ -152,8 +152,8 @@ All contributions are welcome! Just fork the project. [Setup the development env
 
 ## Authors
 
--   **Quadrubo**
--   **[Billie Thompson](https://github.com/PurpleBooth)** - _Provided [README Template](https://github.com/PurpleBooth/a-good-readme-template)_
+  - **Quadrubo**
+  - **[Billie Thompson](https://github.com/PurpleBooth)** - *Provided [README Template](https://github.com/PurpleBooth/a-good-readme-template)*
 
 See also the list of
 [contributors](https://github.com/Quadrubo/wol-client/graphs/contributors)
