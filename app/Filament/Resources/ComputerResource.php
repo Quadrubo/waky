@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComputerResource\Pages;
+use App\Filament\Resources\Concerns\ResourceMetadata;
 use App\Models\Computer;
-use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
