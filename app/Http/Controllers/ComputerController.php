@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreComputerRequest;
 use App\Http\Requests\UpdateComputerRequest;
 use App\Models\Computer;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class ComputerController extends Controller

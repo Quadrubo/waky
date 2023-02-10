@@ -15,20 +15,13 @@ class PingComputer implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
 
     /**
-     * The computer instance.
-     *
-     * @var \App\Models\Computer
-     */
-    public $computer;
-
-    /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Computer $computer)
-    {
-        $this->computer = $computer;
+    public function __construct(
+        public Computer $computer
+    ) {
     }
 
     /**

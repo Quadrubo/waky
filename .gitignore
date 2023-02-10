@@ -20,3 +20,4 @@ yarn-error.log
 .rnd
 _ide_helper.php
 /.tinkerun
+.php-cs-fixer.cache

@@ -4,8 +4,8 @@ namespace App\Actions;
 
 use App\Models\Computer;
 use App\Notifications\UseComputerNotification;
-use Carbon\Carbon;
-use Notification;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class SendComputerNotificationAction
 {

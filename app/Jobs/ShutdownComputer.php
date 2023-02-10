@@ -18,28 +18,14 @@ class ShutdownComputer implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
 
     /**
-     * The computer instance.
-     *
-     * @var \App\Models\Computer
-     */
-    public $computer;
-
-    /**
-     * The user that dispatched the job.
-     *
-     * @var \App\Models\User
-     */
-    public $user;
-
-    /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Computer $computer, User $user)
-    {
-        $this->computer = $computer;
-        $this->user = $user;
+    public function __construct(
+        public Computer $computer,
+        public User $user
+    ) {
     }
 
     /**

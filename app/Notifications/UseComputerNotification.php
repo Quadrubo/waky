@@ -2,10 +2,10 @@
 
 namespace App\Notifications;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
 use NotificationChannels\Webhook\WebhookChannel;
 use NotificationChannels\Webhook\WebhookMessage;
 
@@ -13,23 +13,16 @@ class UseComputerNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public string $computerName;
-
-    public bool $computerInUse;
-
-    public Carbon $timestamp;
-
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(string $computerName, bool $computerInUse, Carbon $timestamp)
-    {
-        $this->computerName = $computerName;
-        $this->computerInUse = $computerInUse;
-        $this->timestamp = $timestamp;
-
+    public function __construct(
+        public string $computerName,
+        public bool $computerInUse,
+        public Carbon $timestamp
+    ) {
         $this->connection = 'database';
         $this->queue = 'notifications';
     }
