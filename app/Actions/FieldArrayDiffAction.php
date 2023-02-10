@@ -2,45 +2,53 @@
 
 namespace App\Actions;
 
+use Illuminate\Support\Str;
+
 class FieldArrayDiffAction
 {
-    public function execute(array $array1, array $array2, array $fields): array
+    public function execute(array $newData, array $existingData, array $fields): array
     {
         $difference = [];
 
-        foreach ($array1 as $value1) {
-            $found = false;
-            foreach ($array2 as $value2) {
-                $equalFields = true;
-                foreach ($fields as $field) {
-                    if ($value1[$field] != $value2[$field]) {
-                        if (static::isValidJson($value1[$field])) {
-                            if (json_decode($value1[$field], true) != $value2[$field]) {
-                                $equalFields = false;
+        // Loop first array
+        foreach ($newData as $newDataKey => $newDataValue) {
+            $matches = null;
+
+            // Loop second array
+            foreach ($existingData as $existingDataKey => $existingDataValue) {
+                $fieldsMatch = true;
+
+                // Loop fields
+                foreach ($fields as $fieldKey => $field) {
+                    if ($newDataValue[$field] !== $existingDataValue[$field]) {
+                        if (gettype($newDataValue[$field]) == 'string') {
+                            // Json check
+                            if (Str::isJson($newDataValue[$field])) {
+                                if (json_decode($newDataValue[$field], true) != $existingDataValue[$field]) {
+                                    $fieldsMatch = false;
+                                }
+                            } else {
+                                $fieldsMatch = false;
                             }
                         } else {
-                            $equalFields = false;
+                            $fieldsMatch = false;
                         }
                     }
                 }
 
-                if ($equalFields) {
-                    $found = true;
+                if ($fieldsMatch) {
+                    $matches = true;
                     break;
+                } else {
+                    $matches = false;
                 }
             }
-            if (! $found) {
-                array_push($difference, $value1);
+
+            if (! $matches) {
+                array_push($difference, $newDataValue);
             }
         }
 
         return $difference;
-    }
-
-    private static function isValidJson($string)
-    {
-        json_decode($string);
-
-        return json_last_error() === JSON_ERROR_NONE;
     }
 }
