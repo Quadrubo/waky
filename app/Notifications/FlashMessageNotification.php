@@ -9,9 +9,9 @@ use Illuminate\Notifications\Notification;
 class FlashMessageNotification extends Notification implements ShouldBroadcast
 {
     public string $message;
-    
+
     public string $level;
-    
+
     public ?string $title;
 
     /**
