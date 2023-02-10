@@ -8,12 +8,6 @@ use Illuminate\Notifications\Notification;
 
 class FlashMessageNotification extends Notification implements ShouldBroadcast
 {
-    public string $message;
-
-    public string $level;
-
-    public ?string $title;
-
     /**
      * The name of the queue the job should be sent to.
      *
@@ -26,11 +20,11 @@ class FlashMessageNotification extends Notification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(string $message, string $level, ?string $title = null)
-    {
-        $this->message = $message;
-        $this->level = $level;
-        $this->title = $title;
+    public function __construct(
+        public string $message,
+        public string $level,
+        public ?string $title = null
+    ) {
     }
 
     /**

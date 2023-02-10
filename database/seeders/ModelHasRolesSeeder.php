@@ -25,7 +25,7 @@ class ModelHasRolesSeeder extends Seeder
                 if (DB::table('model_has_roles')->where('role_id', $role->id)->where('model_id', $user->id)->count() == 0) {
                     DB::table('model_has_roles')->insert([
                         'role_id' => $role->id,
-                        'model_type' => 'App\Models\User',
+                        'model_type' => \App\Models\User::class,
                         'model_id' => $user->id,
                     ]);
                 }
@@ -40,7 +40,7 @@ class ModelHasRolesSeeder extends Seeder
             if (DB::table('model_has_roles')->where('role_id', $role->id)->where('model_id', $user->id)->count() == 0) {
                 DB::table('model_has_roles')->insert([
                     'role_id' => $role->id,
-                    'model_type' => 'App\Models\User',
+                    'model_type' => \App\Models\User::class,
                     'model_id' => $user->id,
                 ]);
             }

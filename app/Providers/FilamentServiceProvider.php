@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Blade;
 use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider

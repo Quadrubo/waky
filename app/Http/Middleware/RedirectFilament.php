@@ -22,7 +22,7 @@ class RedirectFilament
 
         if ($user instanceof FilamentUser) {
             if (! $user->canAccessFilament()) {
-                return redirect()->route('computers.index');
+                return to_route('computers.index');
             }
         }
 

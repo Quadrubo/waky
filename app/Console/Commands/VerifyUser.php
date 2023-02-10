@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 class VerifyUser extends Command
 {

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Actions\FieldArrayDiffAction;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class GeneralSeeder extends Seeder
 {
