@@ -1,0 +1,12 @@
+/public
+/vendor
+/node_modules
+/storage
+/.git
+/.vscode
+/.tinkerun
+composer.json
+composer.lock
+
+docker-compose.yml
+docker-compose-host.yml
