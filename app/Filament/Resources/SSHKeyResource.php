@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\ResourceMetadata;
 use App\Filament\Resources\SSHKeyResource\Pages;
 use App\Models\SSHKey;
-use App\Traits\ResourceMetadata;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;

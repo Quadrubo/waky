@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Traits;
+declare(strict_types=1);
+
+namespace App\Filament\Resources\Concerns;
 
 trait ResourceMetadata
 {
