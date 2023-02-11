@@ -1,28 +1,38 @@
 <?php
 
-namespace App\Actions;
+namespace App\Console\Commands;
 
 use App\Events\ComputerReachableStatusUpdated;
 use App\Jobs\PingComputer;
 use App\Models\Computer;
-use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Bus\Batch;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 use Throwable;
 
-class PingComputersAction
+class PingComputers extends Command
 {
-    use InteractsWithBanner;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'computers:ping';
 
-    public function execute()
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Ping all computers.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
     {
-        if (! Auth::check()) {
-            flash('You have to be authenticated to ping computers.')->error();
-
-            return back();
-        }
-
         $batchArray = [];
 
         $computers = Computer::all();
@@ -41,6 +51,6 @@ class PingComputersAction
             // The batch has finished executing...
         })->dispatch();
 
-        flash('Pinging computers...');
+        return Command::SUCCESS;
     }
 }

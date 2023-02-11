@@ -24,6 +24,14 @@ let pingComputers = () => {
 let useComputer = (id) => {
     router.post(route('computers.use', id));
 };
+
+// Reload the users property on status update event
+Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
+    router.reload({
+        preserveScroll: true,
+        only: ['computers', 'flash'],
+    });
+});
 </script>
 
 <template>

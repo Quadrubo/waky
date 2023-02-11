@@ -17,6 +17,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
+Broadcast::channel('computers', function ($user) {
+    return true;
+});
+
 Broadcast::channel('events', function ($user) {
     return true;
 });
