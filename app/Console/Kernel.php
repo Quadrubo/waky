@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command(PingComputers::class)->everyMinute();
+
+        $schedule->command('queue:prune-batches --cancelled=24 --unfinished=24')->daily();
     }
 
     /**
