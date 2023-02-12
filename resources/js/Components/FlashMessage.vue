@@ -19,9 +19,7 @@
                         <MessageIcon :level="notification.level" />
                     </div>
                     <div class="ml-3 w-0 flex-1 pt-0.5">
-                        <template
-                            v-if="notification.title && notification.message"
-                        >
+                        <template v-if="notification.title && notification.message">
                             <p class="text-sm font-medium text-gray-900">
                                 {{ notification.title }}
                             </p>

@@ -46,27 +46,18 @@ const closeModal = () => {
     <ActionSection>
         <template #title> Browser Sessions </template>
 
-        <template #description>
-            Manage and log out your active sessions on other browsers and
-            devices.
-        </template>
+        <template #description> Manage and log out your active sessions on other browsers and devices. </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                If necessary, you may log out of all of your other browser
-                sessions across all of your devices. Some of your recent
-                sessions are listed below; however, this list may not be
-                exhaustive. If you feel your account has been compromised, you
-                should also update your password.
+                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of
+                your recent sessions are listed below; however, this list may not be exhaustive. If you feel your
+                account has been compromised, you should also update your password.
             </div>
 
             <!-- Other Browser Sessions -->
             <div v-if="sessions.length > 0" class="mt-5 space-y-6">
-                <div
-                    v-for="(session, i) in sessions"
-                    :key="i"
-                    class="flex items-center"
-                >
+                <div v-for="(session, i) in sessions" :key="i" class="flex items-center">
                     <div>
                         <svg
                             v-if="session.agent.is_desktop"
@@ -103,31 +94,19 @@ const closeModal = () => {
 
                     <div class="ml-3">
                         <div class="text-sm text-gray-600">
-                            {{
-                                session.agent.platform
-                                    ? session.agent.platform
-                                    : 'Unknown'
-                            }}
+                            {{ session.agent.platform ? session.agent.platform : 'Unknown' }}
                             -
-                            {{
-                                session.agent.browser
-                                    ? session.agent.browser
-                                    : 'Unknown'
-                            }}
+                            {{ session.agent.browser ? session.agent.browser : 'Unknown' }}
                         </div>
 
                         <div>
                             <div class="text-xs text-gray-500">
                                 {{ session.ip_address }},
 
-                                <span
-                                    v-if="session.is_current_device"
-                                    class="font-semibold text-green-500"
+                                <span v-if="session.is_current_device" class="font-semibold text-green-500"
                                     >This device</span
                                 >
-                                <span v-else
-                                    >Last active {{ session.last_active }}</span
-                                >
+                                <span v-else>Last active {{ session.last_active }}</span>
                             </div>
                         </div>
                     </div>
@@ -135,13 +114,9 @@ const closeModal = () => {
             </div>
 
             <div class="mt-5 flex items-center">
-                <PrimaryButton @click="confirmLogout">
-                    Log Out Other Browser Sessions
-                </PrimaryButton>
+                <PrimaryButton @click="confirmLogout"> Log Out Other Browser Sessions </PrimaryButton>
 
-                <ActionMessage :on="form.recentlySuccessful" class="ml-3">
-                    Done.
-                </ActionMessage>
+                <ActionMessage :on="form.recentlySuccessful" class="ml-3"> Done. </ActionMessage>
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
@@ -149,9 +124,8 @@ const closeModal = () => {
                 <template #title> Log Out Other Browser Sessions </template>
 
                 <template #content>
-                    Please enter your password to confirm you would like to log
-                    out of your other browser sessions across all of your
-                    devices.
+                    Please enter your password to confirm you would like to log out of your other browser sessions
+                    across all of your devices.
 
                     <div class="mt-4">
                         <TextInput
@@ -163,17 +137,12 @@ const closeModal = () => {
                             @keyup.enter="logoutOtherBrowserSessions"
                         />
 
-                        <InputError
-                            :message="form.errors.password"
-                            class="mt-2"
-                        />
+                        <InputError :message="form.errors.password" class="mt-2" />
                     </div>
                 </template>
 
                 <template #footer>
-                    <SecondaryButton @click="closeModal">
-                        Cancel
-                    </SecondaryButton>
+                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
 
                     <PrimaryButton
                         class="ml-3"

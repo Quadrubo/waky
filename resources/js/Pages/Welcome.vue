@@ -15,10 +15,7 @@ defineProps({
     <div
         class="items-top relative flex min-h-screen justify-center bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
     >
-        <div
-            v-if="canLogin"
-            class="fixed top-0 right-0 hidden px-6 py-4 sm:block"
-        >
+        <div v-if="canLogin" class="fixed top-0 right-0 hidden px-6 py-4 sm:block">
             <Link
                 v-if="$page.props.user"
                 :href="route('dashboard')"
@@ -27,11 +24,7 @@ defineProps({
             >
 
             <template v-else>
-                <Link
-                    :href="route('login')"
-                    class="text-sm text-gray-700 underline dark:text-gray-500"
-                    >Log in</Link
-                >
+                <Link :href="route('login')" class="text-sm text-gray-700 underline dark:text-gray-500">Log in</Link>
 
                 <Link
                     v-if="canRegister"
@@ -58,9 +51,7 @@ defineProps({
                 </svg>
             </div>
 
-            <div
-                class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg"
-            >
+            <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="p-6">
                         <div class="flex items-center">
@@ -79,30 +70,22 @@ defineProps({
                                 />
                             </svg>
                             <div class="ml-4 text-lg font-semibold leading-7">
-                                <a
-                                    href="https://laravel.com/docs"
-                                    class="text-gray-900 underline dark:text-white"
+                                <a href="https://laravel.com/docs" class="text-gray-900 underline dark:text-white"
                                     >Documentation</a
                                 >
                             </div>
                         </div>
 
                         <div class="ml-12">
-                            <div
-                                class="mt-2 text-sm text-gray-600 dark:text-gray-400"
-                            >
-                                Laravel has wonderful, thorough documentation
-                                covering every aspect of the framework. Whether
-                                you are new to the framework or have previous
-                                experience with Laravel, we recommend reading
-                                all of the documentation from beginning to end.
+                            <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Laravel has wonderful, thorough documentation covering every aspect of the framework.
+                                Whether you are new to the framework or have previous experience with Laravel, we
+                                recommend reading all of the documentation from beginning to end.
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        class="border-t border-gray-200 p-6 dark:border-gray-700 md:border-t-0 md:border-l"
-                    >
+                    <div class="border-t border-gray-200 p-6 dark:border-gray-700 md:border-t-0 md:border-l">
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -118,29 +101,22 @@ defineProps({
                                 />
                             </svg>
                             <div class="ml-4 text-lg font-semibold leading-7">
-                                <a
-                                    href="https://laracasts.com"
-                                    class="text-gray-900 underline dark:text-white"
+                                <a href="https://laracasts.com" class="text-gray-900 underline dark:text-white"
                                     >Laracasts</a
                                 >
                             </div>
                         </div>
 
                         <div class="ml-12">
-                            <div
-                                class="mt-2 text-sm text-gray-600 dark:text-gray-400"
-                            >
-                                Laracasts offers thousands of video tutorials on
-                                Laravel, PHP, and JavaScript development. Check
-                                them out, see for yourself, and massively level
-                                up your development skills in the process.
+                            <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript
+                                development. Check them out, see for yourself, and massively level up your development
+                                skills in the process.
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        class="border-t border-gray-200 p-6 dark:border-gray-700"
-                    >
+                    <div class="border-t border-gray-200 p-6 dark:border-gray-700">
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -157,29 +133,22 @@ defineProps({
                                 />
                             </svg>
                             <div class="ml-4 text-lg font-semibold leading-7">
-                                <a
-                                    href="https://laravel-news.com/"
-                                    class="text-gray-900 underline dark:text-white"
+                                <a href="https://laravel-news.com/" class="text-gray-900 underline dark:text-white"
                                     >Laravel News</a
                                 >
                             </div>
                         </div>
 
                         <div class="ml-12">
-                            <div
-                                class="mt-2 text-sm text-gray-600 dark:text-gray-400"
-                            >
-                                Laravel News is a community driven portal and
-                                newsletter aggregating all of the latest and
-                                most important news in the Laravel ecosystem,
-                                including new package releases and tutorials.
+                            <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Laravel News is a community driven portal and newsletter aggregating all of the latest
+                                and most important news in the Laravel ecosystem, including new package releases and
+                                tutorials.
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        class="border-t border-gray-200 p-6 dark:border-gray-700 md:border-l"
-                    >
+                    <div class="border-t border-gray-200 p-6 dark:border-gray-700 md:border-l">
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -195,79 +164,33 @@ defineProps({
                                     d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64"
                                 />
                             </svg>
-                            <div
-                                class="ml-4 text-lg font-semibold leading-7 text-gray-900 dark:text-white"
-                            >
+                            <div class="ml-4 text-lg font-semibold leading-7 text-gray-900 dark:text-white">
                                 Vibrant Ecosystem
                             </div>
                         </div>
 
                         <div class="ml-12">
-                            <div
-                                class="mt-2 text-sm text-gray-600 dark:text-gray-400"
-                            >
-                                Laravel's robust library of first-party tools
-                                and libraries, such as
-                                <a
-                                    href="https://forge.laravel.com"
-                                    class="underline"
-                                    >Forge</a
-                                >,
-                                <a
-                                    href="https://vapor.laravel.com"
-                                    class="underline"
-                                    >Vapor</a
-                                >,
-                                <a
-                                    href="https://nova.laravel.com"
-                                    class="underline"
-                                    >Nova</a
-                                >, and
-                                <a href="https://envoyer.io" class="underline"
-                                    >Envoyer</a
-                                >
-                                help you take your projects to the next level.
-                                Pair them with powerful open source libraries
-                                like
-                                <a
-                                    href="https://laravel.com/docs/billing"
-                                    class="underline"
-                                    >Cashier</a
-                                >,
-                                <a
-                                    href="https://laravel.com/docs/dusk"
-                                    class="underline"
-                                    >Dusk</a
-                                >,
-                                <a
-                                    href="https://laravel.com/docs/broadcasting"
-                                    class="underline"
-                                    >Echo</a
-                                >,
-                                <a
-                                    href="https://laravel.com/docs/horizon"
-                                    class="underline"
-                                    >Horizon</a
-                                >,
-                                <a
-                                    href="https://laravel.com/docs/sanctum"
-                                    class="underline"
-                                    >Sanctum</a
-                                >,
-                                <a
-                                    href="https://laravel.com/docs/telescope"
-                                    class="underline"
-                                    >Telescope</a
-                                >, and more.
+                            <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Laravel's robust library of first-party tools and libraries, such as
+                                <a href="https://forge.laravel.com" class="underline">Forge</a>,
+                                <a href="https://vapor.laravel.com" class="underline">Vapor</a>,
+                                <a href="https://nova.laravel.com" class="underline">Nova</a>, and
+                                <a href="https://envoyer.io" class="underline">Envoyer</a>
+                                help you take your projects to the next level. Pair them with powerful open source
+                                libraries like
+                                <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>,
+                                <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>,
+                                <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>,
+                                <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>,
+                                <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>,
+                                <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div
-                class="mt-4 flex justify-center sm:items-center sm:justify-between"
-            >
+            <div class="mt-4 flex justify-center sm:items-center sm:justify-between">
                 <div class="text-center text-sm text-gray-500 sm:text-left">
                     <div class="flex items-center">
                         <svg
@@ -285,12 +208,7 @@ defineProps({
                             />
                         </svg>
 
-                        <a
-                            href="https://laravel.bigcartel.com"
-                            class="ml-1 underline"
-                        >
-                            Shop
-                        </a>
+                        <a href="https://laravel.bigcartel.com" class="ml-1 underline"> Shop </a>
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -307,18 +225,11 @@ defineProps({
                             />
                         </svg>
 
-                        <a
-                            href="https://github.com/sponsors/taylorotwell"
-                            class="ml-1 underline"
-                        >
-                            Sponsor
-                        </a>
+                        <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline"> Sponsor </a>
                     </div>
                 </div>
 
-                <div
-                    class="ml-4 text-center text-sm text-gray-500 sm:ml-0 sm:text-right"
-                >
+                <div class="ml-4 text-center text-sm text-gray-500 sm:ml-0 sm:text-right">
                     Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
                 </div>
             </div>
