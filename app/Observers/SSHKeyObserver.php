@@ -28,8 +28,8 @@ class SSHKeyObserver
         Storage::disk('private')->put($privateKeyName, $privateSSHKey);
         Storage::disk('private')->put($publicKeyName, $publicSSHKey);
 
-        $sSHKey->public_file = Storage::disk('private')->path($publicKeyName);
-        $sSHKey->private_file = Storage::disk('private')->path($privateKeyName);
+        $sSHKey->public_file = $publicKeyName;
+        $sSHKey->private_file = $privateKeyName;
 
         chmod(Storage::disk('private')->path($privateKeyName), 0400);
 
@@ -45,6 +45,12 @@ class SSHKeyObserver
     public function updated(SSHKey $sSHKey)
     {
         //
+    }
+
+    public function deleting(SSHKey $sSHKey)
+    {
+        Storage::disk('private')->delete($sSHKey->public_file);
+        Storage::disk('private')->delete($sSHKey->private_file);
     }
 
     /**
