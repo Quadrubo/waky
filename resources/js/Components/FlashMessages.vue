@@ -13,7 +13,7 @@ router.on('success', (event) => {
     });
 });
 
-Echo.private('App.Models.User.1').notification((notification) => {
+Echo.private(`App.Models.User.${usePage().props.user.id}`).notification((notification) => {
     notifications.value.push(notification);
 });
 </script>
