@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\Ssh\Ssh;
+use Storage;
 
 class ShutdownComputer implements ShouldQueue
 {
@@ -38,7 +39,7 @@ class ShutdownComputer implements ShouldQueue
         $process = Ssh::create($this->computer->ssh_user, $this->computer->ip_address)
             ->addExtraOption('-o ConnectTimeout=10 -oBatchMode=yes')
             ->disableStrictHostKeyChecking()
-            ->usePrivateKey($this->computer->sSHKey()->first()->private_file)
+            ->usePrivateKey(Storage::disk('private')->path($this->computer->sSHKey()->first()->private_file))
             ->disablePasswordAuthentication()
             ->execute($this->computer->ssh_shutdown_command);
 
