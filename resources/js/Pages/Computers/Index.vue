@@ -37,9 +37,7 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
 <template>
     <AppLayout title="Computers">
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Computers
-            </h2>
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">Computers</h2>
             <IndigoButton @click="pingComputers">Refresh</IndigoButton>
         </template>
 
@@ -57,45 +55,26 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
                                 <!-- {{ computer }} -->
 
                                 <!-- Top row -->
-                                <div
-                                    class="flex flex-row items-center justify-between"
-                                >
-                                    <div
-                                        class="flex flex-row items-center space-x-2"
-                                    >
+                                <div class="flex flex-row items-center justify-between">
+                                    <div class="flex flex-row items-center space-x-2">
                                         <span>
                                             <!-- On click show last updated at, only show the dot -->
-                                            <StatusIndicator
-                                                class="m-auto block"
-                                                :type="computer.status"
-                                                >{{
-                                                    computer.status
-                                                }}</StatusIndicator
-                                            >
+                                            <StatusIndicator class="m-auto block" :type="computer.status">
+                                                {{ computer.status }}
+                                            </StatusIndicator>
                                         </span>
                                         <span class="text-xl">
                                             {{ computer.name }}
                                         </span>
                                     </div>
                                     <span>
-                                        <IndigoButton
-                                            @click="wakeComputer(computer.id)"
-                                            >Wake-up</IndigoButton
-                                        >
+                                        <IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton>
                                     </span>
                                     <span>
-                                        <IndigoButton
-                                            @click="
-                                                shutdownComputer(computer.id)
-                                            "
-                                            >Shutdown</IndigoButton
-                                        >
+                                        <IndigoButton @click="shutdownComputer(computer.id)">Shutdown</IndigoButton>
                                     </span>
                                     <div class="space-x-2">
-                                        <IndigoButton
-                                            @click="useComputer(computer.id)"
-                                            >Use</IndigoButton
-                                        >
+                                        <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>
                                         <span>{{ computer.users }}</span>
                                     </div>
                                 </div>
@@ -119,35 +98,19 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
                             class="hidden max-w-full table-auto divide-y-2 divide-gray-300 overflow-hidden bg-white text-left text-gray-900 shadow-xl sm:rounded-lg md:table"
                         >
                             <thead>
-                                <tr
-                                    class="divide-x bg-indigo-400 text-xl font-bold"
-                                >
+                                <tr class="divide-x bg-indigo-400 text-xl font-bold">
                                     <th scope="col" class="px-6 py-4">Name</th>
-                                    <th scope="col" class="px-6 py-4">
-                                        Mac Address
-                                    </th>
-                                    <th scope="col" class="px-6 py-4">
-                                        IP Address
-                                    </th>
-                                    <th scope="col" class="px-6 py-4">
-                                        Wake-Up
-                                    </th>
-                                    <th scope="col" class="px-6 py-4">
-                                        Shutdown
-                                    </th>
-                                    <th scope="col" class="px-6 py-4">
-                                        In use by
-                                    </th>
-                                    <th scope="col" class="px-6 py-4">
-                                        Status
-                                    </th>
+                                    <th scope="col" class="px-6 py-4">Mac Address</th>
+                                    <th scope="col" class="px-6 py-4">IP Address</th>
+                                    <th scope="col" class="px-6 py-4">Wake-Up</th>
+                                    <th scope="col" class="px-6 py-4">Shutdown</th>
+                                    <th scope="col" class="px-6 py-4">In use by</th>
+                                    <th scope="col" class="px-6 py-4">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-300">
                                 <tr
-                                    v-for="(
-                                        computer, computer_key
-                                    ) in computers"
+                                    v-for="(computer, computer_key) in computers"
                                     :key="computer_key"
                                     class="border-box divide-x text-base font-light"
                                 >
@@ -161,46 +124,23 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
                                         {{ computer.ip_address }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <IndigoButton
-                                            @click="wakeComputer(computer.id)"
-                                            >Wake-up</IndigoButton
-                                        >
+                                        <IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <IndigoButton
-                                            @click="
-                                                shutdownComputer(computer.id)
-                                            "
-                                            >Shutdown</IndigoButton
-                                        >
+                                        <IndigoButton @click="shutdownComputer(computer.id)">Shutdown</IndigoButton>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div
-                                            class="flex flex-row items-center justify-evenly"
-                                        >
-                                            <IndigoButton
-                                                @click="
-                                                    useComputer(computer.id)
-                                                "
-                                                >Use</IndigoButton
-                                            >
+                                        <div class="flex flex-row items-center justify-evenly">
+                                            <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>
                                             <span>{{ computer.users }}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div
-                                            class="flex flex-row justify-evenly"
-                                        >
-                                            <span>{{
-                                                computer.status_updated_at
-                                            }}</span>
-                                            <StatusIndicator
-                                                class="m-auto block"
-                                                :type="computer.status"
-                                                >{{
-                                                    computer.status
-                                                }}</StatusIndicator
-                                            >
+                                        <div class="flex flex-row justify-evenly">
+                                            <span>{{ computer.status_updated_at }}</span>
+                                            <StatusIndicator class="m-auto block" :type="computer.status">{{
+                                                computer.status
+                                            }}</StatusIndicator>
                                         </div>
                                     </td>
                                 </tr>

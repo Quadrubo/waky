@@ -21,11 +21,7 @@ Echo.private('App.Models.User.1').notification((notification) => {
 <template>
     <div class="pointer-events-none fixed inset-0 z-[90] px-4 py-6 sm:p-6">
         <div class="flex min-w-min flex-col items-end justify-start space-y-2">
-            <FlashMessage
-                v-for="(message, message_key) in notifications"
-                :key="message_key"
-                :message="message"
-            />
+            <FlashMessage v-for="(message, message_key) in notifications" :key="message_key" :message="message" />
         </div>
     </div>
 </template>

@@ -16,9 +16,7 @@ defineProps({
 <template>
     <AppLayout title="Profile">
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Profile
-            </h2>
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">Profile</h2>
         </template>
 
         <div>
@@ -35,11 +33,7 @@ defineProps({
                     <SectionBorder />
                 </div>
 
-                <div
-                    v-if="
-                        $page.props.jetstream.canManageTwoFactorAuthentication
-                    "
-                >
+                <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <TwoFactorAuthenticationForm
                         :requires-confirmation="confirmsTwoFactorAuthentication"
                         class="mt-10 sm:mt-0"
@@ -48,14 +42,9 @@ defineProps({
                     <SectionBorder />
                 </div>
 
-                <LogoutOtherBrowserSessionsForm
-                    :sessions="sessions"
-                    class="mt-10 sm:mt-0"
-                />
+                <LogoutOtherBrowserSessionsForm :sessions="sessions" class="mt-10 sm:mt-0" />
 
-                <template
-                    v-if="$page.props.jetstream.hasAccountDeletionFeatures"
-                >
+                <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
                     <SectionBorder />
 
                     <DeleteUserForm class="mt-10 sm:mt-0" />

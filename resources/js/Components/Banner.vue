@@ -3,9 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
 const show = ref(true);
-const style = computed(
-    () => usePage().props.jetstream.flash?.bannerStyle || 'success'
-);
+const style = computed(() => usePage().props.jetstream.flash?.bannerStyle || 'success');
 const message = computed(() => usePage().props.jetstream.flash?.banner || '');
 
 watch(message, async () => {
@@ -75,10 +73,8 @@ watch(message, async () => {
                             type="button"
                             class="-mr-1 flex rounded-md p-2 transition focus:outline-none sm:-mr-2"
                             :class="{
-                                'hover:bg-indigo-600 focus:bg-indigo-600':
-                                    style == 'success',
-                                'hover:bg-red-600 focus:bg-red-600':
-                                    style == 'danger',
+                                'hover:bg-indigo-600 focus:bg-indigo-600': style == 'success',
+                                'hover:bg-red-600 focus:bg-red-600': style == 'danger',
                             }"
                             aria-label="Dismiss"
                             @click.prevent="show = false"
@@ -91,11 +87,7 @@ watch(message, async () => {
                                 stroke-width="1.5"
                                 stroke="currentColor"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
