@@ -50,6 +50,10 @@ class SSHKeyResource extends Resource
                                     ->disabled()
                                     ->dehydrated(false)
                                     ->afterStateHydrated(function (Forms\Components\Textarea $component, $state) {
+                                        if (is_null($state)) {
+                                            return;
+                                        }
+
                                         if (Storage::disk('private')->exists($state)) {
                                             $component->state(Storage::disk('private')->get($state));
                                         }
