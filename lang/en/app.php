@@ -63,7 +63,7 @@ return [
 
                 'public_file' => [
                     'label' => 'Public Key File',
-                    'helper' => '',
+                    'helper' => 'This is the public key generated for access on your server. It is only used to shutdown the server remotely via this application using the provided shutdown command set on the computer. To add this to your server google "[server] ssh key access".',
                     'hint' => '',
                 ],
 

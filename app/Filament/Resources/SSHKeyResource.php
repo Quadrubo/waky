@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class SSHKeyResource extends Resource
@@ -37,6 +38,27 @@ class SSHKeyResource extends Resource
                                     ->maxLength(255)
                                     ->autofocus()
                                     ->localize('app.general.attributes.name'),
+                            ])
+                            ->columns([
+                                'default' => 1,
+                                'sm' => 2,
+                            ]),
+                        Forms\Components\Section::make(__('app.filament.forms.sections.additional_information.label'))
+                            ->hiddenOn('create')
+                            ->schema([
+                                Forms\Components\Textarea::make('public_file')
+                                    ->disabled()
+                                    ->dehydrated(false)
+                                    ->afterStateHydrated(function (Forms\Components\Textarea $component, $state) {
+                                        if (Storage::disk('private')->exists($state)) {
+                                            $component->state(Storage::disk('private')->get($state));
+                                        }
+                                    })
+                                    ->columnSpan([
+                                        'default' => 1,
+                                        'sm' => 2,
+                                    ])
+                                    ->localize('app.models.ssh_key.attributes.public_file'),
                             ])
                             ->columns([
                                 'default' => 1,
