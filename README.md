@@ -66,6 +66,7 @@ _The queue is responsilbe for executing the jobs like pinging the computers._
 
 ```
 sail artisan queue:work
+sail artisan queue:work --queue notifications
 ```
 
 Install the npm dependencies.
