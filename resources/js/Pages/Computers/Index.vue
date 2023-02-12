@@ -57,16 +57,34 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
                                 <!-- Top row -->
                                 <div class="flex flex-row items-center justify-between">
                                     <div class="flex flex-row items-center space-x-2">
-                                        <span>
-                                            <!-- On click show last updated at, only show the dot -->
-                                            <StatusIndicator class="m-auto block" :type="computer.status">
-                                                {{ computer.status }}
-                                            </StatusIndicator>
-                                        </span>
+                                        <StatusIndicator class="m-auto block" :type="computer.status">
+                                            {{ computer.status }}
+                                        </StatusIndicator>
                                         <span class="text-xl">
                                             {{ computer.name }}
                                         </span>
                                     </div>
+                                    <div>
+                                        <span> last updated {{ computer.status_updated_at }} </span>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <!-- Middle row -->
+                                <div class="flex flex-row justify-evenly">
+                                    <span>
+                                        {{ computer.mac_address }}
+                                    </span>
+                                    <span>
+                                        {{ computer.ip_address }}
+                                    </span>
+                                </div>
+
+                                <hr />
+
+                                <!-- Bottom row -->
+                                <div class="flex flex-row items-center justify-between">
                                     <span>
                                         <IndigoButton @click="wakeComputer(computer.id)">Wake-up</IndigoButton>
                                     </span>
@@ -77,18 +95,6 @@ Echo.private(`computers`).listen('ComputerReachableStatusUpdated', (e) => {
                                         <IndigoButton @click="useComputer(computer.id)">Use</IndigoButton>
                                         <span>{{ computer.users }}</span>
                                     </div>
-                                </div>
-
-                                <hr />
-
-                                <!-- Bottom row -->
-                                <div class="flex flex-row justify-evenly">
-                                    <span>
-                                        {{ computer.mac_address }}
-                                    </span>
-                                    <span>
-                                        {{ computer.ip_address }}
-                                    </span>
                                 </div>
                             </div>
                         </div>
