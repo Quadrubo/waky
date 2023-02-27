@@ -124,25 +124,6 @@ Build the vite production environment.
 npm run build
 ```
 
-## Troubleshooting
-
-### Your requirements could not be resolved to an installable set of packages.
-
-The error currently persists because of the `php-wake-on-lan` package in use.
-
-```
-Your requirements could not be resolved to an installable set of packages.
-
-  Problem 1
-    - Root composer.json requires diegonz/php-wake-on-lan ^2.1 -> satisfiable by diegonz/php-wake-on-lan[v2.1.0].
-    - diegonz/php-wake-on-lan v2.1.0 requires php ^7.1.8 -> your php version (8.2.2) does not satisfy that requirement.
-```
-
-As a workaround, you can run `composer` commands with the `--ignore-platform-req=php` flag.
-To fix this error, the [PHPWakeOnLan](https://github.com/diegonz/PHPWakeOnLan) package has to be updated to support PHP ^8.
-
-I already opened a Pull request with the fix on the repository. You can check the status [here](https://github.com/diegonz/PHPWakeOnLan/pull/9).
-
 ## Built With
 
 -   [Laravel](https://github.com/laravel/framework) - Framework
