@@ -20,7 +20,7 @@ class GiveRoleToUser extends Command
      *
      * @var string
      */
-    protected $description = 'Give a user a rule.';
+    protected $description = 'Give a user a role';
 
     /**
      * Execute the console command.
