@@ -1,6 +1,17 @@
 # Waky
 
+## Introduction
+
 A web based Wake-on-LAN Server for managing servers in your home network!
+
+### Why would I use this?
+
+The main use for Waky is to be able to manage computers/servers in your home.
+
+#### Collaboration
+
+I manage a shared server which a few other people, including myself, use.
+To make sure the server doesn't waste electricity, one can "use" the server to block others from shutting it down. The last person to have the server in use can then shutdown the server once they're finished.
 
 ## Getting Started
 
