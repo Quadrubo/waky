@@ -15,13 +15,6 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   PLATFORMS: linux/amd64, linux/arm64, linux/arm/v7
-  # Needed when building npm dependencies or else the app won't launch
-  # To change later modify the env file and run `npm run build`
-  VITE_PUSHER_APP_KEY: 12345
-  VITE_PUSHER_HOST: 127.0.0.1
-  VITE_PUSHER_PORT: 6001
-  VITE_PUSHER_SCHEME: http
-  VITE_PUSHER_APP_CLUSTER: mt1
 
 jobs:
   build:
