@@ -142,8 +142,6 @@ You can access the admin panel at `/admin`.
 
 The project is a pretty simple Laravel app. The admin panel is built using [Filament](https://github.com/filamentphp/filament). The rest of the site was scaffolded with [Laravel Jetstream](https://github.com/laravel/jetstream) and is using the [Inertia Stack](https://jetstream.laravel.com/2.x/stacks/inertia.html).
 
-There is also the [TODO.md](TODO.md) file, filled with stuff that is left to do.
-
 ### Usage
 
 #### Discord Webhook Notifications
