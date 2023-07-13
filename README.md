@@ -22,7 +22,7 @@ services:
             - '/etc/localtime:/etc/localtime:ro'
             - './data/config:/config' # Directory for sqlite database & .env
             - './data/ssl/web:/etc/ssl/web' # Directory for ssl certificates
-        image: 'ghcr.io/quadrubo/waky:main'
+        image: 'ghcr.io/quadrubo/waky:latest'
         network_mode: host
         restart: unless-stopped
 ```
