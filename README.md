@@ -13,20 +13,17 @@ version: '3'
 services:
     waky:
         container_name: waky
-        ports:
-            - '8080:80'
-            - '8443:443'
-            - '6001:6001' # Websocket server
         environment:
             - PUID=1000
             - PGID=1000
-            - APP_URL=http://localhost:8080
+            - APP_URL=http://localhost
             - TZ=Europe/Berlin
         volumes:
             - '/etc/localtime:/etc/localtime:ro'
             - './data/config:/config' # Directory for sqlite database & .env
             - './data/ssl/web:/etc/ssl/web' # Directory for ssl certificates
-        image: 'ghcr.io/quadrubo/waky:latest'
+        image: 'ghcr.io/quadrubo/waky:main'
+        network_mode: host
         restart: unless-stopped
 ```
 
