@@ -33,7 +33,7 @@ sail up
 Copy the environment file.
 
 ```
-cp .env.dev .env
+cp .env.sail.example .env
 ```
 
 Generate the app key.

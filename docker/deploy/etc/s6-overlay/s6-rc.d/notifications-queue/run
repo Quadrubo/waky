@@ -1,0 +1,2 @@
+#!/command/with-contenv bash
+s6-setuidgid webuser php $WEBUSER_HOME/artisan queue:work --queue notifications --tries=3 --no-ansi -q
