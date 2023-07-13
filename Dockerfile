@@ -5,6 +5,8 @@ ARG NODE_VERSION=18
 # Add /config to allowed directory tree
 ENV PHP_OPEN_BASEDIR=$WEBUSER_HOME:/config/:/dev/stdout:/tmp
 
+ENV VITE_PUSHER_APP_KEY=$VITE_PUSHER_APP_KEY
+
 # Enable mixed ssl mode so port 80 or 443 can be used
 ENV SSL_MODE="mixed"
 
