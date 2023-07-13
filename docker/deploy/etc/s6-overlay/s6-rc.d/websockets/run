@@ -1,0 +1,2 @@
+#!/command/with-contenv bash
+s6-setuidgid webuser php $WEBUSER_HOME/artisan websockets:serve --no-ansi -q
