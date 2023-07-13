@@ -24,6 +24,10 @@ import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
 console.log(import.meta.env.VITE_PUSHER_APP_KEY);
+console.log(import.meta.env.VITE_PUSHER_APP_CLUSTER);
+console.log(import.meta.env.VITE_PUSHER_HOST);
+console.log(import.meta.env.VITE_PUSHER_PORT);
+console.log(import.meta.env.VITE_PUSHER_SCHEME);
 
 window.Echo = new Echo({
     broadcaster: 'pusher',

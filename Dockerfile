@@ -2,10 +2,22 @@ FROM serversideup/php:8.2-fpm-nginx
 
 ARG NODE_VERSION=18
 
-# Add /config to allowed directory tree
-ENV PHP_OPEN_BASEDIR=$WEBUSER_HOME:/config/:/dev/stdout:/tmp
+# Needed when building npm dependencies or else the app won't launch
+# To change later modify the env file and run `npm run build`
+ARG VITE_PUSHER_APP_KEY
+ARG VITE_PUSHER_HOST
+ARG VITE_PUSHER_PORT
+ARG VITE_PUSHER_SCHEME
+ARG VITE_PUSHER_APP_CLUSTER
 
 ENV VITE_PUSHER_APP_KEY=$VITE_PUSHER_APP_KEY
+ENV VITE_PUSHER_HOST=$VITE_PUSHER_HOST
+ENV VITE_PUSHER_PORT=$VITE_PUSHER_PORT
+ENV VITE_PUSHER_SCHEME=$VITE_PUSHER_SCHEME
+ENV VITE_PUSHER_APP_CLUSTER=$VITE_PUSHER_APP_CLUSTER
+
+# Add /config to allowed directory tree
+ENV PHP_OPEN_BASEDIR=$WEBUSER_HOME:/config/:/dev/stdout:/tmp
 
 # Enable mixed ssl mode so port 80 or 443 can be used
 ENV SSL_MODE="mixed"
