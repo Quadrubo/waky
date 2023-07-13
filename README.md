@@ -1,8 +1,46 @@
-# WOL-Client
+# Waky
 
 A web based Wake-on-LAN Server for managing servers in your home network!
 
 ## Getting Started
+
+To install Waky you can use the provided Docker images.
+
+### Install with Docker Compose
+
+```yml
+version: '3'
+services:
+    waky:
+        container_name: waky
+        ports:
+            - '8080:80'
+            - '8443:443'
+            - '6001:6001' # Websocket server
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - APP_URL=http://localhost:8080
+            - TZ=Europe/Berlin
+        volumes:
+            - '/etc/localtime:/etc/localtime:ro'
+            - './data/config:/config' # Directory for sqlite database & .env
+            - './data/ssl/web:/etc/ssl/web' # Directory for ssl certificates
+        image: 'ghcr.io/quadrubo/waky:latest'
+        restart: unless-stopped
+```
+
+Run `docker compose up` to start the application.
+
+You can now login to your instance with the user below. Once authenticated, it is recommended to change your email and password.
+
+| Username          | Password |
+| ----------------- | -------- |
+| admin@example.com | password |
+
+**Warning:** This account will be recreated if there are no users in the system.
+
+## Contributing
 
 These instructions will give you a copy of the project up and running on
 your local machine for development and testing purposes. See deployment
@@ -19,7 +57,7 @@ I also assume that you [configured the sail alias](https://laravel.com/docs/9.x/
 First clone the project to your local system.
 
 ```
-git clone https://github.com/Quadrubo/wol-client
+git clone https://github.com/Quadrubo/waky
 ```
 
 [Install the composer dependencies](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects) using Laravel Sail.
@@ -111,19 +149,6 @@ This sends you notifications when a computer switches from no to one or one to n
 sail test
 ```
 
-## Deployment
-
-To deploy this on a live system, you **should not** use Laravel Sail.  
-I also had trouble getting it to run with Docker, because the Wake-on-LAN magic packet wouldn't route out of the container. If you find a way to run this within Docker I'd gladly accept a Pull Request with a compose file.
-
-In production, I currently just run this with `php8.2-fpm`, `nginx` and a `mariadb` database. Please check the Laravel documentation on [Deployment](https://laravel.com/docs/9.x/deployment) for more details.
-
-Build the vite production environment.
-
-```
-npm run build
-```
-
 ## Built With
 
 -   [Laravel](https://github.com/laravel/framework) - Framework
@@ -138,7 +163,7 @@ All contributions are welcome! Just fork the project. [Setup the development env
 -   **[Billie Thompson](https://github.com/PurpleBooth)** - _Provided [README Template](https://github.com/PurpleBooth/a-good-readme-template)_
 
 See also the list of
-[contributors](https://github.com/Quadrubo/wol-client/graphs/contributors)
+[contributors](https://github.com/Quadrubo/waky/graphs/contributors)
 who participated in this project.
 
 ## License
