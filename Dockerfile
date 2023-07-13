@@ -39,7 +39,6 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-d
     && chown -R webuser:webgroup /var/www/html
 
 # Install npm dependencies
-RUN npm ci \
-    && npm run build
+RUN npm ci
 
 VOLUME /config
