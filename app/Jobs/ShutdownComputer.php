@@ -5,18 +5,17 @@ namespace App\Jobs;
 use App\Models\Computer;
 use App\Models\User;
 use App\Notifications\FlashMessageNotification;
-use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Ssh\Ssh;
-use Storage;
 
 class ShutdownComputer implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
@@ -44,15 +43,17 @@ class ShutdownComputer implements ShouldQueue
             ->execute($this->computer->ssh_shutdown_command);
 
         if ($process->getExitCode() === 255) {
-            $this->user->notify(new FlashMessageNotification('Computer not reachable, maybe it is already shut down or the SSH Key is wrong.', 'danger'));
+            $this->user->notify(new FlashMessageNotification('Computer not reachable.', 'danger', 'Maybe it is already shut down or the SSH Key is wrong?'));
+
+            dd($process, $process->getExitCode(), $process->getOutput());
 
             return;
         }
 
         if ($process->getExitCode() !== 0) {
-            $this->user->notify(new FlashMessageNotification('Computer failed to shutdown,', 'danger'));
+            $this->user->notify(new FlashMessageNotification('Computer failed to shutdown.', 'danger'));
 
-            ray($process, $process->getExitCode(), $process->getOutput());
+            dd($process, $process->getExitCode(), $process->getOutput());
 
             return;
         }

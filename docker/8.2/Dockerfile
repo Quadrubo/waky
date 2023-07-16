@@ -43,7 +43,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update && apt-get install iputils-ping
+RUN apt-get update && apt-get install -y iputils-ping
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.2
 

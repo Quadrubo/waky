@@ -13,8 +13,6 @@ class CreateUser extends CreateRecord
 
     /**
      * Returns the form actions displayed at the bottom of the page.
-     *
-     * @return array
      */
     protected function getFormActions(): array
     {
@@ -29,8 +27,6 @@ class CreateUser extends CreateRecord
     /**
      * Returns the ButtonAction for creating an entry and going back
      * to the resource view page.
-     *
-     * @return Action
      */
     protected function getCreateAndBackFormAction(): Action
     {

@@ -164,9 +164,6 @@ class UserResource extends Resource
 
     /**
      * Get the advanced search result Details.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $record
-     * @return array
      */
     public static function getGlobalSearchResultDetails(Model $record): array
     {
@@ -178,8 +175,6 @@ class UserResource extends Resource
 
     /**
      * Get the Eloquent query for global search. Excludes the records the user is not authorized to see.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     protected static function getGlobalSearchEloquentQuery(): Builder
     {
@@ -194,9 +189,6 @@ class UserResource extends Resource
 
     /**
      * Gets the URL the User is redirected to after clicking on a global search result.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $record
-     * @return string
      */
     public static function getGlobalSearchResultUrl(Model $record): string
     {

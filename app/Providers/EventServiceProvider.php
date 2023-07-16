@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\UserRegistered;
 use App\Models\SSHKey;
 use App\Observers\SSHKeyObserver;
 use Illuminate\Auth\Events\Registered;
@@ -19,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            UserRegistered::class,
         ],
     ];
 

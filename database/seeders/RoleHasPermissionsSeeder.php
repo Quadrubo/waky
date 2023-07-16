@@ -39,6 +39,7 @@ class RoleHasPermissionsSeeder extends Seeder
             'wake_computer',
             'use_computer',
             'shutdown_computer',
+            'access_filament',
         ];
 
         $permissions = Permission::whereIn('name', $permissions)->get();

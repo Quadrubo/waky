@@ -21,9 +21,9 @@ class FlashMessageNotification extends Notification implements ShouldBroadcast
      * @return void
      */
     public function __construct(
-        public string $message,
+        public string $title,
         public string $level,
-        public ?string $title = null
+        public ?string $body = null,
     ) {
     }
 
@@ -45,8 +45,8 @@ class FlashMessageNotification extends Notification implements ShouldBroadcast
     {
         return (new BroadcastMessage([
             'title' => $this->title,
-            'message' => $this->message,
             'level' => $this->level,
+            'body' => $this->body,
         ]))->onConnection('database')->onQueue('notifications');
     }
 

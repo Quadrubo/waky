@@ -140,7 +140,7 @@ You can access the admin panel at `/admin`.
 
 ### Project Structure
 
-The project is a pretty simple Laravel app. The admin panel is built using [Filament](https://github.com/filamentphp/filament). The rest of the site was scaffolded with [Laravel Jetstream](https://github.com/laravel/jetstream) and is using the [Inertia Stack](https://jetstream.laravel.com/2.x/stacks/inertia.html).
+The project is a pretty simple Laravel app, built using [Filament](https://github.com/filamentphp/filament).
 
 ### Usage
 

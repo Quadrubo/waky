@@ -88,7 +88,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \Filament\Http\Livewire\Auth\Login::class,
+            'login' => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -201,12 +201,15 @@ return [
 
     'broadcasting' => [
 
-        // 'echo' => [
-        //     'broadcaster' => 'pusher',
-        //     'key' => env('VITE_PUSHER_APP_KEY'),
-        //     'cluster' => env('VITE_PUSHER_APP_CLUSTER'),
-        //     'forceTLS' => true,
-        // ],
+        'echo' => [
+            'broadcaster' => 'pusher',
+            'key' => env('VITE_PUSHER_APP_KEY'),
+            'cluster' => env('VITE_PUSHER_APP_CLUSTER', 'mt1'),
+            'wsHost' => env('VITE_PUSHER_HOST'),
+            'wsPort' => env('VITE_PUSHER_PORT', 80),
+            'wssPort' => env('VITE_PUSHER_PORT', 443),
+            'forceTLS' => env('VITE_PUSHER_SCHEME', 'https') === 'https',
+        ],
 
     ],
 

@@ -1,11 +1,5 @@
 <?php
 
-use App\Http\Controllers\ComputerController;
-use App\Http\Controllers\PingComputersController;
-use App\Http\Controllers\ShutdownComputerController;
-use App\Http\Controllers\UseComputerController;
-use App\Http\Controllers\WakeComputerController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,18 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/', function () {
-        return to_route('computers.index');
+        return to_route('filament.pages.dashboard');
     });
-
-    Route::resource('computers', ComputerController::class)
-            ->only(['index']);
-
-    Route::post('/computers/{computer}/wake', WakeComputerController::class)->name('computers.wake');
-    Route::post('/computers/{computer}/shutdown', ShutdownComputerController::class)->name('computers.shutdown');
-    Route::post('/computers/ping', PingComputersController::class)->name('computers.ping');
-    Route::post('/computers/{computer}/use', UseComputerController::class)->name('computers.use');
 });
