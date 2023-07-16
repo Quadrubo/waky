@@ -14,6 +14,8 @@ RUN apt-get update \
         curl \
         cron \
         htop \
+        iputils-ping \
+        openssh-client \
 # Install cron file
     && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
 # Install node & npm

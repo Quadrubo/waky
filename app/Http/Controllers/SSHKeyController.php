@@ -31,7 +31,6 @@ class SSHKeyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSSHKeyRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreSSHKeyRequest $request)
@@ -42,7 +41,6 @@ class SSHKeyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return \Illuminate\Http\Response
      */
     public function show(SSHKey $sSHKey)
@@ -53,7 +51,6 @@ class SSHKeyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return \Illuminate\Http\Response
      */
     public function edit(SSHKey $sSHKey)
@@ -64,8 +61,6 @@ class SSHKeyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSSHKeyRequest  $request
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateSSHKeyRequest $request, SSHKey $sSHKey)
@@ -76,7 +71,6 @@ class SSHKeyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return \Illuminate\Http\Response
      */
     public function destroy(SSHKey $sSHKey)

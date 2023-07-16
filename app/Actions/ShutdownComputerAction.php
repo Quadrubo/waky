@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Jobs\ShutdownComputer;
 use App\Models\Computer;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class ShutdownComputerAction
@@ -11,42 +12,65 @@ class ShutdownComputerAction
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
-            flash('You have to be authenticated to shutdown a computer.')->error();
+            Notification::make()
+                ->title('You have to be authenticated to shutdown a computer.')
+                ->danger()
+                ->send();
 
             return back();
         }
 
         if (! $computer->canBeShutdownBy(Auth::user())) {
             if (! Auth::user()->can('shutdown_computer')) {
-                flash('You are not authorized to shutdown this computer.')->error();
+                Notification::make()
+                    ->title('You are not authorized to shutdown this computer.')
+                    ->danger()
+                    ->send();
 
                 return back();
             }
 
             if ($computer->isInUse()) {
-                flash('The computer can not shutdown because it is still in use.')->error();
+                Notification::make()
+                    ->title('The computer can not shutdown because it is still in use.')
+                    ->danger()
+                    ->send();
 
                 return back();
             }
 
-            flash('The computer can not shutdown. Are you authorized to do this?')->error();
+            Notification::make()
+                ->title('The computer can not shutdown. Are you authorized to do this?')
+                ->danger()
+                ->send();
 
             return back();
         }
 
         if (! $computer->ssh_user || ! $computer->ssh_shutdown_command) {
-            flash('The computer can not shutdown. SSH configuration is missing.')->error();
+            Notification::make()
+                ->title('The computer can not shutdown. SSH configuration is missing.')
+                ->danger()
+                ->send();
 
             return back();
         }
 
         if ($computer->sSHKey()->count() == 0) {
-            flash('The computer can not shutdown. SSH key is missing.')->error();
+            Notification::make()
+                ->title('The computer can not shutdown. SSH key is missing.')
+                ->danger()
+                ->send();
 
             return back();
         }
 
-        flash('Shutting down computer...');
+        Notification::make()
+            ->title('Shutting down computer...')
+            ->icon('heroicon-o-information-circle')
+            // TODO: get this working
+            // ->iconColor('blue')
+            ->send();
 
         ShutdownComputer::dispatch($computer, Auth::user());
 

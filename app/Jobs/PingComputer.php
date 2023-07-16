@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Computer;
-use App\Support\Concerns\InteractsWithBanner;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class PingComputer implements ShouldQueue
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels, InteractsWithBanner;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.

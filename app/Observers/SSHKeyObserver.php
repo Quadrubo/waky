@@ -11,7 +11,6 @@ class SSHKeyObserver
     /**
      * Handle the SSHKey "created" event.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return void
      */
     public function created(SSHKey $sSHKey)
@@ -39,7 +38,6 @@ class SSHKeyObserver
     /**
      * Handle the SSHKey "updated" event.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return void
      */
     public function updated(SSHKey $sSHKey)
@@ -56,7 +54,6 @@ class SSHKeyObserver
     /**
      * Handle the SSHKey "deleted" event.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return void
      */
     public function deleted(SSHKey $sSHKey)
@@ -67,7 +64,6 @@ class SSHKeyObserver
     /**
      * Handle the SSHKey "restored" event.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return void
      */
     public function restored(SSHKey $sSHKey)
@@ -78,7 +74,6 @@ class SSHKeyObserver
     /**
      * Handle the SSHKey "force deleted" event.
      *
-     * @param  \App\Models\SSHKey  $sSHKey
      * @return void
      */
     public function forceDeleted(SSHKey $sSHKey)

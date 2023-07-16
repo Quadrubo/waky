@@ -21,8 +21,6 @@ class EditUser extends EditRecord
 
     /**
      * Returns the form actions displayed at the bottom of the page.
-     *
-     * @return array
      */
     protected function getFormActions(): array
     {
@@ -36,8 +34,6 @@ class EditUser extends EditRecord
     /**
      * Returns the ButtonAction for saving an entry and going back
      * to the resource view page.
-     *
-     * @return Action
      */
     protected function getSaveAndBackFormAction(): Action
     {

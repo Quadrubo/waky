@@ -3,23 +3,27 @@
 namespace App\Actions;
 
 use App\Models\Computer;
-use App\Support\Concerns\InteractsWithBanner;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class WakeComputerAction
 {
-    use InteractsWithBanner;
-
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
-            flash('You have to be authenticated to wake a computer.')->error();
+            Notification::make()
+                ->title('You have to be authenticated to wake a computer.')
+                ->danger()
+                ->send();
 
             return back();
         }
 
         if (! $computer->canBeWokenUpBy(Auth::user())) {
-            flash('You are not authorized to wake this computer.')->error();
+            Notification::make()
+                ->title('You are not authorized to wake this computer.')
+                ->danger()
+                ->send();
 
             return back();
         }
@@ -27,9 +31,17 @@ class WakeComputerAction
         $result = $computer->wake();
 
         if ($result['result'] == 'OK') {
-            flash()->overlay($result['message'], 'Computer is waking up...')->success();
+            Notification::make()
+                ->title('Computer is waking up...')
+                ->body($result['message'])
+                ->success()
+                ->send();
         } else {
-            flash()->overlay($result['message'], 'An error occured')->error();
+            Notification::make()
+                ->title('An error occured')
+                ->body($result['message'])
+                ->danger()
+                ->send();
         }
     }
 }

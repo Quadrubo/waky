@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Models\Computer;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class UseComputerAction
@@ -10,13 +11,19 @@ class UseComputerAction
     public function execute(Computer $computer)
     {
         if (! Auth::check()) {
-            flash('You have to be authenticated to use a computer.')->error();
+            Notification::make()
+                ->title('You have to be authenticated to use a computer.')
+                ->danger()
+                ->send();
 
             return back();
         }
 
         if (! $computer->canBeUsedBy(Auth::user())) {
-            flash('You are not authorized to use a computer.')->error();
+            Notification::make()
+                ->title('You are not authorized to use a computer.')
+                ->danger()
+                ->send();
 
             return back();
         }
