@@ -41,6 +41,9 @@ services:
         restart: unless-stopped
 ```
 
+**Note:** You should change the image version from `latest` to the one currently available so you don't get surprised by a new major version. Note that you have to update waky by changing the tag.  
+Example: `image: 'ghcr.io/quadrubo/waky:v0.2.0'`.
+
 Run `docker compose up` to start the application.
 
 You can now login to your instance with the user below. Once authenticated, it is recommended to change your email and password.
