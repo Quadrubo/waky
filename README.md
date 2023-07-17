@@ -78,16 +78,16 @@ git clone https://github.com/Quadrubo/waky
 
 [Install the composer dependencies](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects) using Laravel Sail.
 
-Start the container.
-
-```
-sail up
-```
-
 Copy the environment file.
 
 ```
 cp .env.sail.example .env
+```
+
+Start the container.
+
+```
+sail up
 ```
 
 Generate the app key.
@@ -113,6 +113,13 @@ _The scheduler is responsible for starting the jobs in regular intervals._
 
 ```
 sail artisan schedule:work
+```
+
+Running the websocket server.
+_The websocket server is responsible for providing realtime notifications._
+
+```
+sail artisan websockets:serve
 ```
 
 Running the queue.  
