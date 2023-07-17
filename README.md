@@ -27,8 +27,10 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - APP_URL=http://localhost
             - TZ=Europe/Berlin
+            # Change if you access on a different URL
+            - APP_URL=http://localhost
+            - PUSHER_HOST=localhost
             # Uncomment if you want to use ports other than 80 & 443
             # - HTTP_PORT=8080
             # - HTTPS_PORT=8443
@@ -40,6 +42,9 @@ services:
         network_mode: host
         restart: unless-stopped
 ```
+
+**Note:** You should change the image version from `latest` to the one currently available so you don't get surprised by a new major version. Note that you have to update waky by changing the tag.  
+Example: `image: 'ghcr.io/quadrubo/waky:v0.2.0'`.
 
 Run `docker compose up` to start the application.
 
@@ -73,16 +78,16 @@ git clone https://github.com/Quadrubo/waky
 
 [Install the composer dependencies](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects) using Laravel Sail.
 
-Start the container.
-
-```
-sail up
-```
-
 Copy the environment file.
 
 ```
 cp .env.sail.example .env
+```
+
+Start the container.
+
+```
+sail up
 ```
 
 Generate the app key.
@@ -108,6 +113,13 @@ _The scheduler is responsible for starting the jobs in regular intervals._
 
 ```
 sail artisan schedule:work
+```
+
+Running the websocket server.
+_The websocket server is responsible for providing realtime notifications._
+
+```
+sail artisan websockets:serve
 ```
 
 Running the queue.  
