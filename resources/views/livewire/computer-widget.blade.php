@@ -31,8 +31,8 @@
     </div>
 
     <div class="flex flex-col">
-        <span class="text-gray-700">{{ $computer->ip_address }}</span>
-        <span class="text-gray-700">{{ $computer->mac_address }}</span>
+        <span class="text-gray-700 dark:text-gray-200">{{ $computer->ip_address }}</span>
+        <span class="text-gray-700 dark:text-gray-200">{{ $computer->mac_address }}</span>
     </div>
 
 
@@ -40,7 +40,7 @@
     </livewire:simple-toggle>
 
     <div>
-        <span class="text-gray-700">
+        <span class="text-gray-700 dark:text-gray-200">
             Status last updated {{ $this->getLastOnlineStatus() }}
         </span>
     </div>
