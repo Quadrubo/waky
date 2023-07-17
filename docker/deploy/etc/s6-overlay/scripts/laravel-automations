@@ -136,6 +136,56 @@ s6-setuidgid webuser php $WEBUSER_HOME/artisan db:seed --class FirstAdminUserSee
 echo "✅ Admin user created."
 echo ""
 
+# Replace ports. Needed as the project is running in network_mode: host which doesn't support mapping ports.
+# The nginx files have to be modified manually.
+#
+# Creates:
+# - http.conf.bak      https.conf.bak      (Original files)
+# - http.conf.template https.conf.template (Files with port variables to replace)
+# - http.conf          https.conf          (Files used by the webserver, recreated each start)
+echo "Replacing ports..."
+
+if [ ! -f "/etc/nginx/site-opts.d/http.conf.bak" ] || [ ! -f "/etc/nginx/site-opts.d/http.conf.template" ]; then
+    cp /etc/nginx/site-opts.d/http.conf /etc/nginx/site-opts.d/http.conf.bak
+    cp /etc/nginx/site-opts.d/http.conf /etc/nginx/site-opts.d/http.conf.template
+
+    # Replace the port "80" with "${HTTP_PORT}" in the file
+    sed -i 's/listen 80 default_server;/listen ${HTTP_PORT} default_server;/' /etc/nginx/site-opts.d/http.conf.template
+    sed -i 's/listen \[::\]:80 default_server;/listen [::]:${HTTP_PORT} default_server;/' /etc/nginx/site-opts.d/http.conf.template
+fi
+
+if [ ! -f "/etc/nginx/site-opts.d/https.conf.bak" ] || [ ! -f "/etc/nginx/site-opts.d/https.conf.template" ]; then
+    cp /etc/nginx/site-opts.d/https.conf /etc/nginx/site-opts.d/https.conf.bak
+    cp /etc/nginx/site-opts.d/https.conf /etc/nginx/site-opts.d/https.conf.template
+
+    # Replace the port "443" with "${HTTPS_PORT}" in the file
+    sed -i 's/listen 443 http2 ssl default_server;/listen ${HTTPS_PORT} http2 ssl default_server;/' /etc/nginx/site-opts.d/https.conf.template
+    sed -i 's/listen \[::\]:443 http2 ssl default_server;/listen [::]:${HTTPS_PORT} http2 ssl default_server;/' /etc/nginx/site-opts.d/https.conf.template
+fi
+
+if [[ -z "$HTTP_PORT" ]]; then
+    echo "No overridden HTTP port found. Using default config."
+
+    cp /etc/nginx/site-opts.d/http.conf.bak /etc/nginx/site-opts.d/http.conf
+else 
+    echo "Replacing HTTP Port with $HTTP_PORT"
+
+    envsubst '$$HTTP_PORT' < /etc/nginx/site-opts.d/http.conf.template > /etc/nginx/site-opts.d/http.conf
+fi
+
+if [[ -z "$HTTPS_PORT" ]]; then
+    echo "No overridden HTTPS port found. Using default config."
+
+    cp /etc/nginx/site-opts.d/https.conf.bak /etc/nginx/site-opts.d/https.conf
+else 
+    echo "Replacing HTTPS Port with $HTTPS_PORT"
+
+    envsubst '$$HTTPS_PORT' < /etc/nginx/site-opts.d/https.conf.template > /etc/nginx/site-opts.d/https.conf
+fi
+
+echo "✅ Ports replaced."
+echo ""
+
 # App install done, show a message
 echo "✅  All set, Template started."
 echo ""

@@ -1,0 +1,16 @@
+#!/command/with-contenv bash
+if [[ -z "${HTTP_PORT}" ]]; then
+    url="http://localhost/ping"
+else
+    url="http://localhost:${HTTP_PORT}/ping"
+fi
+
+response=$(curl --location --insecure --silent "$url")
+
+if [[ $response == "pong" ]]; then
+	exit 0
+else
+	echo "❌ There seems to be a failure in checking the web server + PHP-FPM. Here's the response:"
+	echo $response
+	exit 1
+fi

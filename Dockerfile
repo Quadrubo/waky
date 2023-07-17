@@ -16,6 +16,8 @@ RUN apt-get update \
         htop \
         iputils-ping \
         openssh-client \
+        # Needed for envsubst
+        gettext-base \ 
 # Install cron file
     && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
 # Install node & npm
