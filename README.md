@@ -34,7 +34,6 @@ services:
             # Uncomment if you want to use ports other than 80 & 443
             # - HTTP_PORT=8080
             # - HTTPS_PORT=8443
-    
         volumes:
             - '/etc/localtime:/etc/localtime:ro'
             - './data/config:/config' # Directory for sqlite database & .env
