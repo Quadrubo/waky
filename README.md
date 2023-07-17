@@ -27,11 +27,14 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - APP_URL=http://localhost
             - TZ=Europe/Berlin
+            # Change if you access on a different URL
+            - APP_URL=http://localhost
+            - PUSHER_HOST=localhost
             # Uncomment if you want to use ports other than 80 & 443
             # - HTTP_PORT=8080
             # - HTTPS_PORT=8443
+    
         volumes:
             - '/etc/localtime:/etc/localtime:ro'
             - './data/config:/config' # Directory for sqlite database & .env
