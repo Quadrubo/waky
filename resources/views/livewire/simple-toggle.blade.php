@@ -5,7 +5,7 @@
             users: @entangle('users'),
         }"
         :aria-checked="state"
-        x-on:click="state = ! state; state ? users++ : users--;"
+        x-on:click="state = ! state; state ? users++ : users--; $wire.useOrUnuse();"
         wire:loadling.attr="disabled"
         type="button"
         class="
