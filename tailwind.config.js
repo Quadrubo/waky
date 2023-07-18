@@ -1,25 +1,29 @@
+import colors from 'tailwindcss/colors';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
 const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: ['./resources/**/*.blade.php', './vendor/filament/**/*.blade.php'],
-
+export default {
+    content: [
+        './resources/**/*.blade.php',
+        './vendor/filament/**/*.blade.php', 
+    ],
     darkMode: 'class',
-
     theme: {
         extend: {
             colors: {
                 danger: colors.rose,
                 primary: colors.amber,
                 success: colors.green,
-                warning: colors.amber,
+                warning: colors.yellow,
             },
             fontFamily: {
                 sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },
-
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+        forms, 
+        typography, 
+    ],
 };

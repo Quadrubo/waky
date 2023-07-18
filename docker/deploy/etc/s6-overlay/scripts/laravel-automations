@@ -94,27 +94,6 @@ s6-setuidgid webuser php $WEBUSER_HOME/artisan storage:link --no-ansi -q
 echo "✅  Storage linked."
 echo ""
 
-# Build the npm dependencies
-# npm dependencies are built in here instead of the Dockerfile to allow for changing
-# the credentials for laravel echo to something secure.
-# Vite needs to run it's build script in order for these credentials to apply.
-if [ ! -d "$WEBUSER_HOME/public/build" ]; then
-    echo "Building Vite for the first time..."
-    npm run --prefix $WEBUSER_HOME build &> '/dev/null'
-    echo "Vite built."
-    echo ""
-fi
-
-# if [ -n "$(diff -q $WEBUSER_HOME/.env $WEBUSER_HOME/.env.old)" ]; then
-if [ -f "$WEBUSER_HOME/.env.old" ] && [ -n "$(diff -q $WEBUSER_HOME/.env $WEBUSER_HOME/.env.old)" ]; then
-    echo "Building Vite because your .env file has changed..."
-    npm run --prefix $WEBUSER_HOME build &> '/dev/null'
-    echo "Vite built."
-    echo ""
-fi
-
-cp $WEBUSER_HOME/.env $WEBUSER_HOME/.env.old
-
 # Build cache
 echo "💰  Building the cache..."
 s6-setuidgid webuser php $WEBUSER_HOME/artisan config:cache --no-ansi -q
