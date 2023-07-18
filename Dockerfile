@@ -43,6 +43,9 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-d
     && chown -R webuser:webgroup /var/www/html
 
 # Install npm dependencies
-RUN npm ci
+RUN npm pkg delete scripts.prepare
+RUN npm ci \
+    && npm run build \
+    && npm cache clean --force
 
 VOLUME /config
