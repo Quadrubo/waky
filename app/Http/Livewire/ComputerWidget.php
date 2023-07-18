@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Actions\ShutdownComputerAction;
-use App\Actions\UnuseComputerAction;
-use App\Actions\UseComputerAction;
 use App\Actions\WakeComputerAction;
 use App\Models\Computer;
 use Illuminate\Support\Carbon;
@@ -19,25 +17,10 @@ class ComputerWidget extends Component
 
     public Computer $computer;
 
-    protected $listeners = ['useStateUpdated' => 'useOrUnuse'];
-
     public function mount()
     {
         $this->users = $this->computer->users->count();
         $this->used = $this->computer->users->contains(Auth::user());
-    }
-
-    public function useOrUnuse($computerID, UseComputerAction $useComputerAction, UnuseComputerAction $unuseComputerAction)
-    {
-        $computer = Computer::find($computerID);
-
-        if ($computer->users->contains(Auth::user())) {
-            $unuseComputerAction->execute($computer);
-
-            return;
-        }
-
-        $useComputerAction->execute($computer);
     }
 
     public function wakeOrShutdown($computerID, WakeComputerAction $wakeComputerAction, ShutdownComputerAction $shutdownComputerAction)

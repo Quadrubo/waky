@@ -2,6 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\UnuseComputerAction;
+use App\Actions\UseComputerAction;
+use App\Models\Computer;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SimpleToggle extends Component
@@ -30,11 +34,17 @@ class SimpleToggle extends Component
         }
     }
 
-    public function updated($property)
+    public function useOrUnuse(UseComputerAction $useComputerAction, UnuseComputerAction $unuseComputerAction)
     {
-        if ($property === 'state') {
-            $this->emit('useStateUpdated', $this->computerID);
+        $computer = Computer::find($this->computerID);
+
+        if ($computer->users->contains(Auth::user())) {
+            $unuseComputerAction->execute($computer);
+
+            return;
         }
+
+        $useComputerAction->execute($computer);
     }
 
     public function render()
