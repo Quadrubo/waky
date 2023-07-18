@@ -13,7 +13,6 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
         cron \
-        htop \
         iputils-ping \
         openssh-client \
         # Needed for envsubst
@@ -46,6 +45,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-d
 RUN npm pkg delete scripts.prepare
 RUN npm ci \
     && npm run build \
-    && npm cache clean --force
+    # Clean up
+    && npm cache clean --force \
+    && rm -rf node_modules
 
 VOLUME /config
