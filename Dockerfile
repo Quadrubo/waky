@@ -1,21 +1,13 @@
+ARG NODE_VERSION=18.16.0
+
+FROM node:${NODE_VERSION}-alpine AS node
+
 FROM ghcr.io/quadrubo/php-fpm-alpine-s6-nginx:php8.2-alpine3.18 as waky_builder
 
-# Install node
-ENV NODE_VERSION=18.16.0
-
-ENV NODE_PACKAGE_URL=https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64-musl.tar.xz
-
-RUN apk update && \
-    apk add --no-cache libstdc++
-
-RUN curl -fsSLO --compressed $NODE_PACKAGE_URL \
-    && tar -xJf "node-v$NODE_VERSION-linux-x64-musl.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-    # fi
-    && rm -f "node-v$NODE_VERSION-linux-x64-musl.tar.xz" \
-    # smoke tests
-    && node --version \
-    && npm --version
+COPY --from=node /usr/lib /usr/lib
+COPY --from=node /usr/local/lib /usr/local/lib
+COPY --from=node /usr/local/include /usr/local/include
+COPY --from=node /usr/local/bin /usr/local/bin
 
 WORKDIR /var/www/html
 
