@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Http\Middleware\RedirectFilament;
 use Filament\Http\Middleware\Authenticate;
