@@ -47,7 +47,7 @@ RUN apk update \
         # Needed for envsubst
         gettext \
     # Install cron file
-    && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /var/spool/cron/crontabs/root \
+    && echo "* * * * * /usr/local/bin/php /var/www/html/artisan schedule:run" > /var/spool/cron/crontabs/root \
     # Clean up package lists
     # && apt-get clean \
     && rm -rf /tmp/* /var/tmp/* /usr/share/doc/*
