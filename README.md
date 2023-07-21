@@ -38,9 +38,13 @@ services:
             - '/etc/localtime:/etc/localtime:ro'
             - './data/config:/config' # Directory for sqlite database & .env
             - './data/ssl/web:/etc/ssl/web' # Directory for ssl certificates
+            - 'waky-storage:/var/www/html/storage'
         image: 'ghcr.io/quadrubo/waky:latest'
         network_mode: host
         restart: unless-stopped
+
+volumes:
+  waky-storage:
 ```
 
 **Note:** You should change the image version from `latest` to the one currently available so you don't get surprised by a new major version. Note that you have to update waky by changing the tag.  
