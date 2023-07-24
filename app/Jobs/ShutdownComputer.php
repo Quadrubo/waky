@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Ssh\Ssh;
 
@@ -45,7 +46,9 @@ class ShutdownComputer implements ShouldQueue
         if ($process->getExitCode() === 255) {
             $this->user->notify(new FlashMessageNotification('Computer not reachable.', 'danger', 'Maybe it is already shut down or the SSH Key is wrong?'));
 
-            dd($process, $process->getExitCode(), $process->getOutput(), $process->getErrorOutput());
+            Log::error($process->getExitCode());
+            Log::error($process->getOutput());
+            Log::error($process->getErrorOutput());
 
             return;
         }
@@ -53,7 +56,9 @@ class ShutdownComputer implements ShouldQueue
         if ($process->getExitCode() !== 0) {
             $this->user->notify(new FlashMessageNotification('Computer failed to shutdown.', 'danger'));
 
-            dd($process, $process->getExitCode(), $process->getOutput(), $process->getErrorOutput());
+            Log::error($process->getExitCode());
+            Log::error($process->getOutput());
+            Log::error($process->getErrorOutput());
 
             return;
         }
