@@ -45,7 +45,7 @@ class ShutdownComputer implements ShouldQueue
         if ($process->getExitCode() === 255) {
             $this->user->notify(new FlashMessageNotification('Computer not reachable.', 'danger', 'Maybe it is already shut down or the SSH Key is wrong?'));
 
-            // dd($process, $process->getExitCode(), $process->getOutput());
+            dd($process, $process->getExitCode(), $process->getOutput(), $process->getErrorOutput());
 
             return;
         }
@@ -53,7 +53,7 @@ class ShutdownComputer implements ShouldQueue
         if ($process->getExitCode() !== 0) {
             $this->user->notify(new FlashMessageNotification('Computer failed to shutdown.', 'danger'));
 
-            // dd($process, $process->getExitCode(), $process->getOutput());
+            dd($process, $process->getExitCode(), $process->getOutput(), $process->getErrorOutput());
 
             return;
         }
